@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио QA-инженера</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #4f46e5;
+            --dark: #1e293b;
+            --light: #f1f5f9;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --error: #ef4444;
+            --text: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            padding: 2rem 0;
+            background-color: rgba(30, 41, 59, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 10%, var(--accent), transparent 40%),
+                        radial-gradient(circle at 20% 80%, var(--secondary), transparent 40%);
+            opacity: 0.15;
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #94a3b8;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .skill-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li::before {
+            content: "→";
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+        
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background-color: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .project-techs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-tag {
+            padding: 0.3rem 0.8rem;
+            background-color: rgba(79, 70, 229, 0.1);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--accent);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        footer {
+            background-color: rgba(15, 23, 42, 0.8);
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        /* Terminal effect for experience section */
+        .terminal {
+            background-color: #0f172a;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .terminal-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .terminal-button.red {
+            background-color: var(--error);
+        }
+        
+        .terminal-button.yellow {
+            background-color: #fbbf24;
+        }
+        
+        .terminal-button.green {
+            background-color: var(--success);
+        }
+        
+        .terminal-title {
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        .terminal-body {
+            line-height: 1.4;
+        }
+        
+        .command {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .command::before {
+            content: "$ ";
+            color: var(--accent);
+        }
+        
+        .response {
+            color: #94a3b8;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+        
+        .blink {
+            animation: blink 1s step-end infinite;
+        }
+        
+        .command-prompt::after {
+            content: "▋";
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        /* Animation */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .projects-container,
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">QA.Инженер</div>
+                <div class="nav-links">
+                    <a href="#about">Обо мне</a>
+                    <a href="#skills">Навыки</a>
+                    <a href="#experience">Опыт</a>
+                    <a href="#projects">Проекты</a>
+                    <a href="#contact">Контакты</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Семён, QA-инженер</h1>
+                <p class="subtitle">Обеспечение качества программного обеспечения через тщательное тестирование и контроль качества</p>
+                <div>
+                    <a href="#contact" class="btn">Связаться со мной</a>
+                    <a href="#projects" class="btn btn-outline">Посмотреть мои работы</a>
+                </div>
+                <div style="margin-top: 2rem;">
+                    <a href="https://github.com/Laki-man3" target="_blank" class="btn social-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        GitHub
+                    </a>
+                    <a href="https://t.me/PowerOfNsk" target="_blank" class="btn social-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.357.561.197.105.43.105.627 0l2.89-1.583 4.162 3.086a2.242 2.242 0 0 0 3.504-1.498l3.11-15.087A2.24 2.24 0 0 0 21.198 2.433Z"/></svg>
+                        Телеграм
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <div class="terminal-button red"></div>
+                        <div class="terminal-button yellow"></div>
+                        <div class="terminal-button green"></div>
+                    </div>
+                    <div class="terminal-title">about.sh</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="command">whoami</div>
+                    <div class="response">
+                        Меня зовут Семён, я QA-инженер и студент 2 курса НГТУ "Информационные системы и технологии". Увлекаюсь ручным тестирование: тестирую формы, web-приложения, мобильные приложения, rest api. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления и предотвращения проблем до того, как они попадут в продакшн. Я верю в совместное тестирование, которое приносит пользу всему жизненному циклу разработки.
+                    </div>
+                    <div class="command">cat mission.txt</div>
+                    <div class="response">
+                        Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что программное обеспечение не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей. Я стремлюсь к постоянному обучению и поддержанию актуальности в отношении новейших методологий и инструментов тестирования.
+                    </div>
+                    <div class="command command-prompt">ls -la qualities/</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="skills">
+    <div class="container">
+        <h2 class="section-title">Технические навыки</h2>
+        <div class="skill-card fade-in" style="width: 100%;">
+            <h3>Профессиональные компетенции</h3>
+            <ul class="skill-list">
+                <li>Знание моделей, методологий разработки ПО и тестирования.</li>
+                <li>Понимание работы компьютерных сетей(модель ISO/OSI, стек протоколов TCP/IP), веб-приложений, серверов, протоколов прикладного уровня(HTTP, SMTP и др.).</li>
+                <li>Умение пользоваться инструментами разработки (DevTools, Jira, Figma).</li>
+                <li>Навыки чтения, анализа и написания кода на Python и C++ (STL, ООП, Windows API).</li>
+                <li>Знания HTML, CSS и JavaScript.</li>
+                <li>Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их составление.</li>
+                <li>Опыт тестирования API в Postman, мобильных приложений в Charles proxy.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+    
+    <section class="section" id="experience">
+        <div class="container">
+            <h2 class="section-title">Опыт</h2>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <div class="terminal-button red"></div>
+                        <div class="terminal-button yellow"></div>
+                        <div class="terminal-button green"></div>
+                    </div>
+                    <div class="terminal-title">career_timeline.log</div>
+                </div>
+                <div class="terminal-body">
+                    <div class="command">tail -n 20 career_timeline.log</div>
+                    <div class="response">
+                        <p><strong style="color: var(--accent)">2025-настоящее время | QA-инженер @ Элтекс</strong><br>
+                        • Занимаюсь ручным тестированием сетевого оборудования<br>
+                    </div>
+                    <div class="command command-prompt">grep "достижения" career_highlights.log</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="projects">
+    <div class="container">
+        <h2 class="section-title">Проекты</h2>
+        <div class="projects-container">
+            <div class="project-card fade-in">
+                <div class="project-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+                <div class="project-content">
+                    <h3>Библиотека для работы с типом данных "Дата"</h3>
+                    <p>Разработал высокопроизводительный класс на C++ для обработки и манипуляции с объектами типа "Дата". Реализовал полный набор операций для корректного сравнения, арифметики и форматирования данных с учетом високосных лет и различных календарных систем.</p>
+                    <div class="project-techs">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">ООП</span>
+                        <span class="tech-tag">STL</span>
+                        <span class="tech-tag">Unit Testing</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in">
+                <div class="project-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+                <div class="project-content">
+                    <h3>Система триангуляции Делоне</h3>
+                    <p>Реализовал алгоритм триангуляции Делоне на C++ с оптимизацией производительности для обработки больших наборов точек. Система включает визуализацию процесса в реальном времени и интерактивный интерфейс для демонстрации этапов построения триангуляции.</p>
+                    <div class="project-techs">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">OpenGL</span>
+                        <span class="tech-tag">Алгоритмы</span>
+                        <span class="tech-tag">Вычислительная геометрия</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in">
+                <div class="project-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </div>
+                <div class="project-content">
+                    <h3>Веб-приложение для внутренней навигации НГТУ</h3>
+                    <p>Спроектировал и разработал интерактивное веб-приложение для 2D-навигации внутри корпусов НГТУ, используя современные веб-технологии. Система включает оптимальное построение маршрутов и адаптивный интерфейс для различных устройств.</p>
+                    <div class="project-techs">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in">
+                <div class="project-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div class="project-content">
+                    <h3>Комплект тестовой документации</h3>
+                    <p>Разработал обширную коллекцию профессиональной тестовой документации, включающую детализированные тест-кейсы, структурированные баг-репорты и решения тестовых заданий от ведущих IT-компаний с применением современных методологий тестирования.</p>
+                    <div class="project-techs">
+                        <span class="tech-tag">Test Cases</span>
+                        <span class="tech-tag">Bug Reports</span>
+                        <span class="tech-tag">Test Documentation</span>
+                        <span class="tech-tag">QA Methodology</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in">
+                <div class="project-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                </div>
+                <div class="project-content">
+                    <h3>Персональный сайт-портфолио</h3>
+                    <p>Спроектировал и разработал современный адаптивный веб-сайт для демонстрации профессиональных достижений и проектов. Реализовал интерактивные элементы, анимации и оптимизировал производительность согласно современным стандартам веб-разработки.</p>
+                    <div class="project-techs">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Responsive Design</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="project-card fade-in">
+                <div class="project-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <div class="project-content">
+                    <h3>Визуализатор 3D-моделей формата OBJ</h3>
+                    <p>Разработал специализированное приложение для открытия и визуализации 3D-моделей в формате OBJ с поддержкой текстур, освещения и интерактивного управления камерой. Оптимизировал рендеринг для эффективной работы с крупными моделями.</p>
+                    <div class="project-techs">
+                        <span class="tech-tag">C++</span>
+                        <span class="tech-tag">OpenGL</span>
+                        <span class="tech-tag">3D Graphics</span>
+                        <span class="tech-tag">UI Design</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Связаться со мной</h2>
+            <div class="contact-form fade-in">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" class="form-control" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Your email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение</label>
+                        <textarea id="message" class="form-control" placeholder="Your message"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+	
+<script>
+    // Получаем все ссылки из навигационного меню
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    // Добавляем обработчик событий для каждой ссылки
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Предотвращаем стандартное поведение ссылки
+            e.preventDefault();
+            
+            // Получаем ID секции, к которой нужно прокрутить
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            // Плавно прокручиваем к нужной секции
+            targetSection.scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
+    // Также добавляем плавный скролл для кнопок в hero-секции
+    const heroButtons = document.querySelectorAll('.hero-content .btn');
+    heroButtons.forEach(button => {
+        if (button.getAttribute('href') && button.getAttribute('href').startsWith('#')) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                targetSection.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+</script>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 QA Engineer Portfolio. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/Laki-man3" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="https://t.me/PowerOfNsk" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.
+					
+					
