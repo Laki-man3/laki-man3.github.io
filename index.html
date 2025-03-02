@@ -482,6 +482,7 @@
                     <a href="#skills">Навыки</a>
                     <a href="#experience">Опыт</a>
                     <a href="#projects">Проекты</a>
+		    <a href="#courses">Курсы</a>
                     <a href="#contact">Контакты</a>
                 </div>
             </nav>
@@ -691,7 +692,57 @@
     </div>
 </section>
     
-    <!-- Заменить секцию контактов -->
+<section class="section" id="courses">
+    <div class="container">
+        <h2 class="section-title">Курсы и тренинги</h2>
+        <div class="skills-container">
+            <div class="skill-card fade-in">
+                <h3>Ручной тестировщик ПО/QA manual</h3>
+                <p>Дата прохождения: 28.02.2025</p>
+                <div class="project-techs" style="margin-top: 1rem;">
+                    <span class="tech-tag">QA</span>
+                    <span class="tech-tag">Тестирование</span>
+                    <span class="tech-tag">Manual Testing</span>
+                </div>
+                <a href="https://stepik.org/cert/2769477" target="_blank" class="btn-more">Сертификат</a>
+            </div>
+            
+            <div class="skill-card fade-in">
+                <h3>Тренажёр Тестирование ПО/QA manual</h3>
+                <p>Дата прохождения: 26.02.2025</p>
+                <div class="project-techs" style="margin-top: 1rem;">
+                    <span class="tech-tag">QA</span>
+                    <span class="tech-tag">Bug Reports</span>
+                    <span class="tech-tag">Test Cases</span>
+                </div>
+                <a href="https://stepik.org/cert/2767015" target="_blank" class="btn-more">Сертификат</a>
+            </div>
+            
+            <div class="skill-card fade-in">
+                <h3>Postman-ниндзя: с нуля до автотестов</h3>
+                <p>Дата прохождения: 15.02.2025</p>
+                <div class="project-techs" style="margin-top: 1rem;">
+                    <span class="tech-tag">API Testing</span>
+                    <span class="tech-tag">Postman</span>
+                    <span class="tech-tag">Automation</span>
+                </div>
+                <a href="https://stepik.org/cert/2756492" target="_blank" class="btn-more">Сертификат</a>
+            </div>
+            
+            <div class="skill-card fade-in">
+                <h3>Тестирование ПО: Postman для тестирования API</h3>
+                <p>Дата прохождения: 15.02.2025</p>
+                <div class="project-techs" style="margin-top: 1rem;">
+                    <span class="tech-tag">REST API</span>
+                    <span class="tech-tag">Postman</span>
+                    <span class="tech-tag">HTTP</span>
+                </div>
+                <a href="https://stepik.org/cert/2756165" target="_blank" class="btn-more">Сертификат</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section" id="contact">
     <div class="container">
         <h2 class="section-title">Связаться со мной</h2>
@@ -714,7 +765,7 @@
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Предотвращаем стандартное поведение ссылки
+        
             e.preventDefault();
         
             const targetId = this.getAttribute('href');
