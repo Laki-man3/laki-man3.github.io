@@ -6,7 +6,7 @@
     <title>QA.Man — Семён Максимович</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2282%22>⚙️</text></svg>" type="image/svg+xml">
     <style>
         :root {
@@ -17,7 +17,6 @@
             --primary:  #00e5ff;
             --secondary:#7c3aed;
             --accent:   #00ff9d;
-            --warn:     #ff6b35;
             --text:     #c8d8f0;
             --muted:    #4a5e80;
             --white:    #eef4ff;
@@ -28,7 +27,6 @@
         }
 
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -40,22 +38,14 @@
             overflow-x: hidden;
         }
 
-        /* ─── NOISE OVERLAY ─── */
         body::before {
             content:'';
             position:fixed; inset:0; z-index:0; pointer-events:none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-            opacity: 0.55;
-        }
-
-        /* ─── GRID BG ─── */
-        body::after {
-            content:'';
-            position:fixed; inset:0; z-index:0; pointer-events:none;
             background-image:
-                linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
             background-size: 60px 60px;
+            opacity: 0.7;
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position:relative; z-index:1; }
@@ -63,33 +53,25 @@
         /* ─── HEADER ─── */
         header {
             position: sticky; top:0; z-index: 200;
-            padding: 0;
-            background: rgba(5,8,16,0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(5,8,16,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
         }
-
-        nav {
-            display:flex; justify-content:space-between; align-items:center;
-            height: 64px;
-        }
+        nav { display:flex; justify-content:space-between; align-items:center; height: 64px; }
 
         .logo {
             font-family: var(--font-head);
             font-size: 1.25rem; font-weight: 800;
-            color: var(--primary);
-            letter-spacing: -0.02em;
+            color: var(--primary); letter-spacing: -0.02em;
             text-shadow: var(--glow-c);
         }
         .logo span { color: var(--accent); }
 
         .nav-links { display:flex; gap:2rem; list-style:none; }
         .nav-links a {
-            color: var(--muted);
-            text-decoration:none;
-            font-size: 0.78rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            color: var(--muted); text-decoration:none;
+            font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
             transition: color 0.25s, text-shadow 0.25s;
         }
         .nav-links a:hover { color: var(--primary); text-shadow: var(--glow-c); }
@@ -100,43 +82,36 @@
             display:flex; align-items:center;
             position:relative; overflow:hidden;
             padding: 6rem 0 4rem;
+            background:
+                radial-gradient(ellipse 65% 55% at 88% 5%,  rgba(0,229,255,0.14) 0%, transparent 70%),
+                radial-gradient(ellipse 55% 50% at 12% 92%, rgba(124,58,237,0.13) 0%, transparent 70%),
+                radial-gradient(ellipse 38% 32% at 52% 46%, rgba(0,255,157,0.07) 0%, transparent 65%),
+                var(--bg);
         }
-
-        /* Orbs */
-        .orb {
-            position:absolute; border-radius:50%;
-            filter: blur(100px); opacity:0.18; pointer-events:none; z-index:0;
-        }
-        .orb-1 { width:600px; height:600px; background:var(--primary);  top:-150px; right:-100px; animation: drift 12s ease-in-out infinite alternate; }
-        .orb-2 { width:500px; height:500px; background:var(--secondary); bottom:-100px; left:-80px;  animation: drift 15s ease-in-out infinite alternate-reverse; }
-        .orb-3 { width:300px; height:300px; background:var(--accent);   top:40%; left:40%;           animation: drift 9s  ease-in-out infinite alternate; }
-
-        @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.07); } }
 
         .hero-content { position:relative; z-index:1; }
 
         .hero-badge {
             display:inline-flex; align-items:center; gap:0.5rem;
             padding: 0.35rem 1rem;
-            border: 1px solid var(--border);
-            border-radius: 100px;
+            border: 1px solid var(--border); border-radius: 100px;
             font-size: 0.72rem; letter-spacing: 0.1em; text-transform:uppercase;
             color: var(--accent); background: rgba(0,255,157,0.06);
             margin-bottom: 1.5rem;
             animation: fadeUp 0.6s ease both;
         }
-        .hero-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; animation: pulse 2s infinite; }
-
-        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.4);} }
+        .hero-badge::before {
+            content:''; width:7px; height:7px; border-radius:50%;
+            background:var(--accent); display:inline-block;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(1.5);} }
 
         h1 {
             font-family: var(--font-head);
-            font-size: clamp(2.8rem, 6vw, 5rem);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            color: var(--white);
-            margin-bottom: 1.5rem;
+            font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800;
+            line-height: 1.05; letter-spacing: -0.03em;
+            color: var(--white); margin-bottom: 1.5rem;
             animation: fadeUp 0.6s 0.1s ease both;
         }
         h1 .name { color: var(--primary); text-shadow: var(--glow-c); }
@@ -147,85 +122,45 @@
             max-width: 560px; margin-bottom: 2.5rem;
             animation: fadeUp 0.6s 0.2s ease both;
         }
-
         .hero-actions { display:flex; flex-wrap:wrap; gap:1rem; animation: fadeUp 0.6s 0.3s ease both; }
 
         .btn {
             display:inline-flex; align-items:center; gap:0.5rem;
-            padding: 0.75rem 1.75rem;
-            border-radius: 8px;
-            font-family: var(--font-mono);
-            font-size: 0.82rem; font-weight: 700;
-            text-decoration:none; cursor:pointer;
-            border: none; transition: all 0.25s;
+            padding: 0.75rem 1.75rem; border-radius: 8px;
+            font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
+            text-decoration:none; cursor:pointer; border: none;
+            transition: background 0.2s, box-shadow 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
             letter-spacing: 0.04em;
         }
-        .btn-primary {
-            background: var(--primary); color: #000;
-        }
+        .btn-primary { background: var(--primary); color: #000; }
         .btn-primary:hover { background: #33ecff; box-shadow: 0 0 24px rgba(0,229,255,0.5); transform: translateY(-2px); }
-
-        .btn-ghost {
-            background: transparent; color: var(--primary);
-            border: 1px solid var(--primary);
-        }
+        .btn-ghost { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
         .btn-ghost:hover { background: rgba(0,229,255,0.1); box-shadow: var(--glow-c); transform: translateY(-2px); }
-
-        .btn-tg {
-            background: rgba(10,18,40,0.8); color: var(--text);
-            border: 1px solid var(--border);
-        }
+        .btn-tg { background: rgba(10,18,40,0.8); color: var(--text); border: 1px solid var(--border); }
         .btn-tg:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
 
-        /* hero stats */
-        .hero-stats {
-            display:flex; gap:2.5rem; margin-top: 3.5rem;
-            animation: fadeUp 0.6s 0.4s ease both;
-        }
+        .hero-stats { display:flex; gap:2.5rem; margin-top: 3.5rem; animation: fadeUp 0.6s 0.4s ease both; }
         .stat { display:flex; flex-direction:column; }
-        .stat-num {
-            font-family: var(--font-head);
-            font-size: 2rem; font-weight: 800;
-            color: var(--primary); line-height:1;
-        }
+        .stat-num { font-family: var(--font-head); font-size: 2rem; font-weight: 800; color: var(--primary); line-height:1; }
         .stat-label { font-size: 0.72rem; color: var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:0.25rem; }
 
-        /* ─── SECTION BASE ─── */
+        /* ─── SECTIONS ─── */
         .section { padding: 6rem 0; }
         .section-header { text-align:center; margin-bottom: 4rem; }
-
-        .section-tag {
-            display:inline-block;
-            font-size: 0.72rem; letter-spacing: 0.12em; text-transform:uppercase;
-            color: var(--accent); margin-bottom: 0.75rem;
-        }
+        .section-tag { display:inline-block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform:uppercase; color: var(--accent); margin-bottom: 0.75rem; }
 
         h2 {
             font-family: var(--font-head);
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 800; letter-spacing:-0.03em;
-            color: var(--white);
-            position:relative; display:inline-block;
+            font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+            letter-spacing:-0.03em; color: var(--white);
         }
 
-        /* ─── ABOUT TERMINAL ─── */
-        .terminal {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow:hidden;
-            box-shadow: 0 0 60px rgba(0,229,255,0.07);
-        }
-        .terminal-bar {
-            display:flex; align-items:center; gap:0.6rem;
-            padding: 0.85rem 1.2rem;
-            background: rgba(255,255,255,0.03);
-            border-bottom: 1px solid var(--border);
-        }
+        /* ─── TERMINAL ─── */
+        .terminal { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; overflow:hidden; box-shadow: 0 0 60px rgba(0,229,255,0.06); }
+        .terminal-bar { display:flex; align-items:center; gap:0.6rem; padding: 0.85rem 1.2rem; background: rgba(255,255,255,0.03); border-bottom: 1px solid var(--border); }
         .dot { width:12px; height:12px; border-radius:50%; }
         .dot-r{background:#ff5f57;} .dot-y{background:#febc2e;} .dot-g{background:#28c840;}
         .t-title { font-size:0.8rem; color: var(--muted); margin-left:0.5rem; }
-
         .terminal-body { padding: 1.5rem 1.75rem; line-height: 1.8; }
         .t-cmd { color: var(--white); margin-bottom:0.3rem; }
         .t-cmd::before { content:"$ "; color: var(--accent); }
@@ -235,278 +170,92 @@
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
         /* ─── SKILLS ─── */
-        .skills-grid {
-            display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .skill-item {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            backdrop-filter: blur(10px);
-        }
-        .skill-item:hover {
-            border-color: rgba(0,229,255,0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 32px rgba(0,229,255,0.1);
-        }
-        .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-        .skill-item h3 {
-            font-family: var(--font-head);
-            font-size: 0.95rem; font-weight: 700;
-            color: var(--primary); margin-bottom: 0.5rem;
-        }
-        .skill-item p { font-size: 0.82rem; color: var(--muted); line-height:1.6; }
-
-        /* flat all-skills block */
-        .skills-flat {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 2rem 2.5rem;
-            backdrop-filter: blur(10px);
-        }
+        .skills-flat { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.5rem; margin-bottom: 1.25rem; }
         .skill-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
-        .skill-list li {
-            display:flex; align-items:flex-start; gap:0.75rem;
-            font-size: 0.88rem; color: var(--text);
-        }
+        .skill-list li { display:flex; align-items:flex-start; gap:0.75rem; font-size: 0.88rem; color: var(--text); }
         .skill-list li::before { content:"→"; color: var(--accent); flex-shrink:0; margin-top:2px; }
 
-        /* ─── EXPERIENCE TIMELINE ─── */
+        .skills-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+        .skill-item { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; }
+        .skill-item:hover { border-color: rgba(0,229,255,0.4); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,229,255,0.1); }
+        .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+        .skill-item h3 { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+        .skill-item p { font-size: 0.82rem; color: var(--muted); line-height:1.6; }
+
+        /* ─── TIMELINE ─── */
         .timeline { position:relative; padding-left: 2rem; }
-        .timeline::before {
-            content:''; position:absolute; left:0; top:8px; bottom:8px;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent);
-        }
-
-        .timeline-item {
-            position:relative;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.75rem 2rem;
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+        .timeline::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent); }
+        .timeline-item { position:relative; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; margin-bottom: 1.5rem; transition: border-color 0.25s, box-shadow 0.25s; }
         .timeline-item:hover { border-color: rgba(0,229,255,0.35); box-shadow: 0 8px 32px rgba(0,229,255,0.08); }
-
-        .timeline-item::before {
-            content:''; position:absolute; left:-2.6rem; top:1.75rem;
-            width:14px; height:14px; border-radius:50%;
-            background: var(--primary);
-            box-shadow: var(--glow-c);
-            border: 2px solid var(--bg);
-        }
-
-        .tl-date {
-            font-size: 0.72rem; letter-spacing:0.1em; text-transform:uppercase;
-            color: var(--accent); margin-bottom:0.4rem;
-        }
-        .tl-company {
-            font-family: var(--font-head);
-            font-size: 1.25rem; font-weight: 800;
-            color: var(--white); margin-bottom: 0.3rem;
-        }
+        .timeline-item::before { content:''; position:absolute; left:-2.6rem; top:1.75rem; width:14px; height:14px; border-radius:50%; background: var(--primary); box-shadow: var(--glow-c); border: 2px solid var(--bg); }
+        .tl-date { font-size: 0.72rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--accent); margin-bottom:0.4rem; }
+        .tl-company { font-family: var(--font-head); font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 0.3rem; }
         .tl-role { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
         .tl-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
         .tl-list li { font-size: 0.85rem; color: var(--text); display:flex; gap:0.6rem; }
         .tl-list li::before { content:"▸"; color: var(--primary); flex-shrink:0; }
 
         /* ─── PROJECTS ─── */
-        .projects-grid {
-            display:flex; flex-direction:column; gap: 1.5rem;
-        }
-
-        .project-card {
-            display:grid;
-            grid-template-columns: 100px 1fr;
-            gap: 1.75rem;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            text-decoration:none; color:inherit;
-        }
-        .project-card:hover {
-            border-color: rgba(0,229,255,0.4);
-            transform: translateX(6px);
-            box-shadow: 0 0 40px rgba(0,229,255,0.08);
-        }
-
-        .project-icon {
-            width:100px; height:100px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15));
-            border: 1px solid var(--border);
-            display:flex; align-items:center; justify-content:center;
-            color: var(--primary); font-size: 2.5rem;
-            flex-shrink:0;
-        }
-
+        .projects-grid { display:flex; flex-direction:column; gap: 1.5rem; }
+        .project-card { display:grid; grid-template-columns: 100px 1fr; gap: 1.75rem; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; text-decoration:none; color:inherit; }
+        .project-card:hover { border-color: rgba(0,229,255,0.4); transform: translateX(6px); box-shadow: 0 0 40px rgba(0,229,255,0.08); }
+        .project-icon { width:100px; height:100px; border-radius: 12px; background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15)); border: 1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size: 2.5rem; flex-shrink:0; }
         .project-body { display:flex; flex-direction:column; justify-content:center; }
-        .project-body h3 {
-            font-family: var(--font-head);
-            font-size: 1.15rem; font-weight: 700;
-            color: var(--white); margin-bottom: 0.5rem;
-        }
+        .project-body h3 { font-family: var(--font-head); font-size: 1.15rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
         .project-body p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; line-height:1.6; }
 
         .tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
-        .tag {
-            padding: 0.25rem 0.7rem;
-            border-radius: 100px;
-            font-size: 0.72rem; letter-spacing:0.06em;
-            background: rgba(0,229,255,0.08);
-            border: 1px solid rgba(0,229,255,0.18);
-            color: var(--primary);
-        }
+        .tag { padding: 0.25rem 0.7rem; border-radius: 100px; font-size: 0.72rem; letter-spacing:0.06em; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.18); color: var(--primary); }
 
-        .project-link {
-            display:inline-flex; align-items:center; gap:0.4rem;
-            margin-top:0.75rem;
-            font-size: 0.78rem; font-weight:700;
-            color: var(--accent); text-decoration:none;
-            letter-spacing:0.05em; text-transform:uppercase;
-            transition: gap 0.2s;
-        }
+        .project-link { display:inline-flex; align-items:center; gap:0.4rem; margin-top:0.75rem; font-size: 0.78rem; font-weight:700; color: var(--accent); text-decoration:none; letter-spacing:0.05em; text-transform:uppercase; transition: gap 0.2s; }
         .project-link:hover { gap: 0.7rem; }
 
         /* ─── COURSES ─── */
-        .courses-grid {
-            display:grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .course-card {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.75rem;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            display:flex; flex-direction:column;
-        }
-        .course-card:hover {
-            border-color: rgba(0,255,157,0.35);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 32px rgba(0,255,157,0.08);
-        }
-        .course-card h3 {
-            font-family: var(--font-head);
-            font-size: 1rem; font-weight: 700;
-            color: var(--white); margin-bottom: 0.4rem; line-height:1.3;
-        }
+        .courses-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+        .course-card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; display:flex; flex-direction:column; }
+        .course-card:hover { border-color: rgba(0,255,157,0.35); transform: translateY(-5px); box-shadow: 0 8px 32px rgba(0,255,157,0.08); }
+        .course-card h3 { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; line-height:1.3; }
         .course-date { font-size: 0.75rem; color: var(--accent); margin-bottom: 1rem; letter-spacing:0.05em; }
         .course-card .tags { margin-top: auto; padding-top: 1rem; }
-        .course-cert {
-            display:inline-flex; align-items:center; gap:0.4rem;
-            margin-top: 1rem;
-            padding: 0.45rem 1rem;
-            border-radius:8px;
-            background: rgba(0,255,157,0.08);
-            border: 1px solid rgba(0,255,157,0.2);
-            color: var(--accent); font-size:0.78rem; font-weight:700;
-            text-decoration:none; letter-spacing:0.05em;
-            transition: background 0.2s, box-shadow 0.2s;
-        }
+        .course-cert { display:inline-flex; align-items:center; gap:0.4rem; margin-top: 1rem; padding: 0.45rem 1rem; border-radius:8px; background: rgba(0,255,157,0.08); border: 1px solid rgba(0,255,157,0.2); color: var(--accent); font-size:0.78rem; font-weight:700; text-decoration:none; letter-spacing:0.05em; transition: background 0.2s, box-shadow 0.2s; }
         .course-cert:hover { background: rgba(0,255,157,0.18); box-shadow: var(--glow-g); }
 
         /* ─── CONTACT ─── */
-        .contact-wrapper {
-            display:grid; grid-template-columns: 1fr 1.2fr; gap: 3rem;
-            align-items:start;
-        }
-        .contact-info h3 {
-            font-family: var(--font-head);
-            font-size: 1.5rem; font-weight: 800;
-            color: var(--white); margin-bottom: 1rem;
-        }
+        .contact-wrapper { display:grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; align-items:start; }
+        .contact-info h3 { font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 1rem; }
         .contact-info p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; }
-        .contact-link {
-            display:inline-flex; align-items:center; gap:0.6rem;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            background: rgba(0,229,255,0.06);
-            border: 1px solid var(--border);
-            color: var(--primary); font-size:0.85rem; font-weight:700;
-            text-decoration:none;
-            transition: all 0.25s;
-        }
+        .contact-link { display:inline-flex; align-items:center; gap:0.6rem; padding: 0.75rem 1.5rem; border-radius: 10px; background: rgba(0,229,255,0.06); border: 1px solid var(--border); color: var(--primary); font-size:0.85rem; font-weight:700; text-decoration:none; transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
         .contact-link:hover { background: rgba(0,229,255,0.14); border-color: var(--primary); box-shadow: var(--glow-c); transform:translateY(-2px); }
-
-        .contact-form {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-        }
-
+        .contact-form { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 2rem; }
         .form-group { margin-bottom: 1.25rem; }
         .form-group label { display:block; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--muted); margin-bottom:0.5rem; }
-        .form-control {
-            width:100%; padding: 0.75rem 1rem;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--white); font-family: var(--font-mono); font-size:0.85rem;
-            transition: border-color 0.25s;
-        }
+        .form-control { width:100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; color: var(--white); font-family: var(--font-mono); font-size:0.85rem; transition: border-color 0.2s, box-shadow 0.2s; }
         .form-control:focus { outline:none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
         textarea.form-control { min-height:130px; resize:vertical; }
-        .btn-submit {
-            width:100%; padding: 0.85rem;
-            background: var(--primary); color:#000;
-            border:none; border-radius:8px;
-            font-family: var(--font-mono); font-size:0.88rem; font-weight:700;
-            cursor:pointer; letter-spacing:0.06em; text-transform:uppercase;
-            transition: all 0.25s;
-        }
+        .btn-submit { width:100%; padding: 0.85rem; background: var(--primary); color:#000; border:none; border-radius:8px; font-family: var(--font-mono); font-size:0.88rem; font-weight:700; cursor:pointer; letter-spacing:0.06em; text-transform:uppercase; transition: background 0.2s, box-shadow 0.2s, transform 0.2s; }
         .btn-submit:hover { background:#33ecff; box-shadow: 0 0 24px rgba(0,229,255,0.5); transform:translateY(-2px); }
-
-        /* reCAPTCHA centering */
         .recaptcha-wrap { display:flex; justify-content:center; margin-bottom:1rem; }
 
+        /* ─── DIVIDER ─── */
+        .divider { height:1px; background: linear-gradient(to right, transparent, var(--border) 30%, var(--border) 70%, transparent); }
+
         /* ─── FOOTER ─── */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 2.5rem 0;
-            text-align:center;
-            background: rgba(5,8,16,0.6);
-        }
+        footer { border-top: 1px solid var(--border); padding: 2.5rem 0; text-align:center; background: rgba(5,8,16,0.6); }
         footer p { font-size:0.78rem; color: var(--muted); }
         .foot-links { display:flex; justify-content:center; gap:1.5rem; margin-top:1rem; }
         .foot-links a { color: var(--muted); transition: color 0.2s; }
         .foot-links a:hover { color: var(--primary); }
 
-        /* ─── DIVIDER ─── */
-        .divider {
-            height:1px;
-            background: linear-gradient(to right, transparent, var(--border) 30%, var(--border) 70%, transparent);
-            margin: 0;
-        }
-
         /* ─── ANIMATIONS ─── */
-        @keyframes fadeUp {
-            from { opacity:0; transform: translateY(24px); }
-            to   { opacity:1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
 
-        .reveal {
-            opacity:0; transform:translateY(24px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
+        .reveal { opacity:0; transform:translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
         .reveal.visible { opacity:1; transform:none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity:1; transform:none; }
+        }
 
         /* ─── RESPONSIVE ─── */
         @media(max-width:768px) {
@@ -545,12 +294,9 @@
 
 <!-- ─────────── HERO ─────────── -->
 <section class="hero">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
     <div class="container">
         <div class="hero-content">
-            <div class="hero-badge">Доступен для новых проектов</div>
+            <div class="hero-badge">Открыт для новых проектов, предложений о работе</div>
             <h1>
                 <span class="name">Семён Максимович</span><br>
                 <span class="role">QA-инженер</span>
@@ -577,18 +323,9 @@
                 </a>
             </div>
             <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-num">2+</span>
-                    <span class="stat-label">Года опыта</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-num">3</span>
-                    <span class="stat-label">Проекта</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-num">5</span>
-                    <span class="stat-label">Сертификатов</span>
-                </div>
+                <div class="stat"><span class="stat-num">2+</span><span class="stat-label">Года опыта</span></div>
+                <div class="stat"><span class="stat-num">3</span><span class="stat-label">Проекта</span></div>
+                <div class="stat"><span class="stat-num">5</span><span class="stat-label">Сертификатов</span></div>
             </div>
         </div>
     </div>
@@ -613,11 +350,11 @@
                 <div class="t-out">
                     Меня зовут <strong>Семён</strong>, я QA-инженер и студент 3 курса НГТУ «Информационные системы и технологии».<br>
                     Увлекаюсь ручным тестированием: тестирую формы, web-приложения, мобильные приложения, API.<br>
-                    Активно изучаю автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления и предотвращения проблем до того, как они попадут в продакшн.
+                    Активно изучаю автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления проблем до того, как они попадут в продакшн.
                 </div>
                 <div class="t-cmd">cat mission.txt</div>
                 <div class="t-out">
-                    Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей. Стремлюсь к постоянному обучению и актуальности в отношении новейших методологий тестирования.
+                    Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей.
                 </div>
                 <div class="t-cmd t-cursor">ls -la qualities/</div>
             </div>
@@ -636,48 +373,23 @@
         </div>
         <div class="skills-flat reveal">
             <ul class="skill-list">
-                <li>Знание моделей, методологий разработки ПО и тестирования, REST, SOAP, GraphQL и других архитектурных решений</li>
-                <li>Понимание работы компьютерных сетей (модель ISO/OSI, стек протоколов TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.)</li>
-                <li>Умение пользоваться инструментами разработки (DevTools, Jira, Figma, Git, Linux)</li>
-                <li>Навыки чтения, анализа и написания кода на Python, Java</li>
-                <li>Знание HTML, CSS и JavaScript</li>
-                <li>Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование</li>
-                <li>Опыт тестирования REST API</li>
-                <li>Опыт написания автотестов</li>
+                <li>Знание моделей, методологий разработки ПО и тестирования, REST, SOAP, GraphQL и других архитектурных решений.</li>
+                <li>Понимание работы компьютерных сетей (ISO/OSI, TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.).</li>
+                <li>Умение пользоваться инструментами разработки и тестирования — Jira, Figma, Git, Linux, DevTools, Kubernetes, Kafka и др.</li>
+                <li>Навыки чтения, анализа и написания кода на Python, C, C++ и Java.</li>
+                <li>Знание HTML, CSS и JavaScript.</li>
+                <li>Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование.</li>
+                <li>Опыт тестирования REST API.</li>
+                <li>Опыт написания автотестов.</li>
             </ul>
         </div>
-
-        <div class="skills-grid" style="margin-top:1.25rem;">
-            <div class="skill-item reveal">
-                <div class="skill-icon">🧪</div>
-                <h3>Ручное тестирование</h3>
-                <p>Web, Mobile, API — функциональное, регрессионное, smoke, exploratory</p>
-            </div>
-            <div class="skill-item reveal">
-                <div class="skill-icon">🤖</div>
-                <h3>Автоматизация</h3>
-                <p>Selenium, Playwright, Pytest, Cypress — написание и поддержка тест-фреймворков</p>
-            </div>
-            <div class="skill-item reveal">
-                <div class="skill-icon">🔌</div>
-                <h3>API тестирование</h3>
-                <p>Postman, REST/HTTP, Charles Proxy, перехват и анализ трафика</p>
-            </div>
-            <div class="skill-item reveal">
-                <div class="skill-icon">📋</div>
-                <h3>Тест-документация</h3>
-                <p>Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты</p>
-            </div>
-            <div class="skill-item reveal">
-                <div class="skill-icon">⚙️</div>
-                <h3>Инструменты</h3>
-                <p>Jira, Git, Linux, Figma, DevTools, CI/CD интеграции</p>
-            </div>
-            <div class="skill-item reveal">
-                <div class="skill-icon">💻</div>
-                <h3>Разработка</h3>
-                <p>Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно</p>
-            </div>
+        <div class="skills-grid">
+            <div class="skill-item reveal"><div class="skill-icon">🧪</div><h3>Ручное тестирование</h3><p>Web, Mobile, API — функциональное, регрессионное, smoke, exploratory</p></div>
+            <div class="skill-item reveal"><div class="skill-icon">🤖</div><h3>Автоматизация</h3><p>Selenium, Playwright, Pytest, Cypress — написание и поддержка тест-фреймворков</p></div>
+            <div class="skill-item reveal"><div class="skill-icon">🔌</div><h3>API тестирование</h3><p>Postman, REST/HTTP, Charles Proxy, перехват и анализ трафика</p></div>
+            <div class="skill-item reveal"><div class="skill-icon">📋</div><h3>Тест-документация</h3><p>Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты</p></div>
+            <div class="skill-item reveal"><div class="skill-icon">⚙️</div><h3>Инструменты</h3><p>Jira, Git, Linux, Figma, DevTools, CI/CD интеграции</p></div>
+            <div class="skill-item reveal"><div class="skill-icon">💻</div><h3>Разработка</h3><p>Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно</p></div>
         </div>
     </div>
 </section>
@@ -730,61 +442,42 @@
             <h2>Проекты</h2>
         </div>
         <div class="projects-grid">
-
-            <div class="project-card reveal" style="display:grid;">
+            <div class="project-card reveal">
                 <div class="project-icon">🧩</div>
                 <div class="project-body">
                     <h3>Пакет автотестов для web-приложения</h3>
                     <p>Комплексный набор автоматизированных тестов с использованием Selenium, Playwright, Cypress, Appium на Python и JavaScript. Покрывает UI, API и E2E-сценарии.</p>
                     <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Selenium</span>
-                        <span class="tag">PyTest</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Playwright</span>
-                        <span class="tag">Automation</span>
+                        <span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">PyTest</span>
+                        <span class="tag">JavaScript</span><span class="tag">Playwright</span><span class="tag">Automation</span>
                     </div>
-                    <a href="https://github.com/Laki-man3/QA/tree/main/Автотесты(демо)" target="_blank" class="project-link">
-                        Смотреть на GitHub →
-                    </a>
+                    <a href="https://github.com/Laki-man3/QA/tree/main/Автотесты(демо)" target="_blank" class="project-link">Смотреть на GitHub →</a>
                 </div>
             </div>
-
-            <div class="project-card reveal" style="display:grid;">
+            <div class="project-card reveal">
                 <div class="project-icon">🏗️</div>
                 <div class="project-body">
                     <h3>Автоматизированный тестовый фреймворк</h3>
                     <p>Универсальный фреймворк для автоматизации тестирования на Python + Selenium + Pytest. Включает систему отчётности, скриншоты при ошибках, параллельное выполнение и CI/CD интеграцию.</p>
                     <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Selenium</span>
-                        <span class="tag">Pytest</span>
-                        <span class="tag">CI/CD</span>
-                        <span class="tag">Allure</span>
+                        <span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Pytest</span>
+                        <span class="tag">CI/CD</span><span class="tag">Allure</span>
                     </div>
-                    <a href="https://github.com/Laki-man3/QA/tree/main/test-automation-framework" target="_blank" class="project-link">
-                        Смотреть на GitHub →
-                    </a>
+                    <a href="https://github.com/Laki-man3/QA/tree/main/test-automation-framework" target="_blank" class="project-link">Смотреть на GitHub →</a>
                 </div>
             </div>
-
-            <div class="project-card reveal" style="display:grid;">
+            <div class="project-card reveal">
                 <div class="project-icon">📄</div>
                 <div class="project-body">
                     <h3>Комплект тестовой документации</h3>
                     <p>Обширная коллекция профессиональной тест-документации: детализированные тест-кейсы, баг-репорты, решения тестовых заданий от ведущих IT-компаний с применением современных методологий.</p>
                     <div class="tags">
-                        <span class="tag">Test Cases</span>
-                        <span class="tag">Bug Reports</span>
-                        <span class="tag">Test Documentation</span>
-                        <span class="tag">QA Methodology</span>
+                        <span class="tag">Test Cases</span><span class="tag">Bug Reports</span>
+                        <span class="tag">Test Documentation</span><span class="tag">QA Methodology</span>
                     </div>
-                    <a href="https://github.com/Laki-man3/QA/tree/main" target="_blank" class="project-link">
-                        Смотреть на GitHub →
-                    </a>
+                    <a href="https://github.com/Laki-man3/QA/tree/main" target="_blank" class="project-link">Смотреть на GitHub →</a>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -799,60 +492,36 @@
             <h2>Курсы и сертификаты</h2>
         </div>
         <div class="courses-grid">
-
             <div class="course-card reveal">
                 <h3>Ручной тестировщик ПО / QA Manual</h3>
                 <div class="course-date">📅 28.02.2025 · Stepik</div>
-                <div class="tags">
-                    <span class="tag">QA</span>
-                    <span class="tag">Manual Testing</span>
-                </div>
+                <div class="tags"><span class="tag">QA</span><span class="tag">Manual Testing</span></div>
                 <a href="https://stepik.org/cert/2769477" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-
             <div class="course-card reveal">
                 <h3>Тренажёр тестирования ПО / QA Manual</h3>
                 <div class="course-date">📅 26.02.2025 · Stepik</div>
-                <div class="tags">
-                    <span class="tag">Bug Reports</span>
-                    <span class="tag">Test Cases</span>
-                </div>
+                <div class="tags"><span class="tag">Bug Reports</span><span class="tag">Test Cases</span></div>
                 <a href="https://stepik.org/cert/2767015" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-
             <div class="course-card reveal">
                 <h3>Postman-ниндзя: с нуля до автотестов</h3>
                 <div class="course-date">📅 15.02.2025 · Stepik</div>
-                <div class="tags">
-                    <span class="tag">API Testing</span>
-                    <span class="tag">Postman</span>
-                    <span class="tag">Automation</span>
-                </div>
+                <div class="tags"><span class="tag">API Testing</span><span class="tag">Postman</span><span class="tag">Automation</span></div>
                 <a href="https://stepik.org/cert/2756492" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-
             <div class="course-card reveal">
                 <h3>Postman для тестирования API</h3>
                 <div class="course-date">📅 15.02.2025 · Stepik</div>
-                <div class="tags">
-                    <span class="tag">REST API</span>
-                    <span class="tag">HTTP</span>
-                    <span class="tag">Postman</span>
-                </div>
+                <div class="tags"><span class="tag">REST API</span><span class="tag">HTTP</span><span class="tag">Postman</span></div>
                 <a href="https://stepik.org/cert/2756165" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-
             <div class="course-card reveal">
                 <h3>Интенсив по ручному тестированию от T1</h3>
                 <div class="course-date">📅 31.07.2025 · T1</div>
-                <div class="tags">
-                    <span class="tag">Manual Testing</span>
-                    <span class="tag">Bug Reports</span>
-                    <span class="tag">Test Cases</span>
-                </div>
+                <div class="tags"><span class="tag">Manual Testing</span><span class="tag">Bug Reports</span><span class="tag">Test Cases</span></div>
                 <a href="https://davtb-teachbase.api.eric.s3storage.ru/system/coursestat/116573/cert/2b06ca199eb84080b88a58a29db4cd7f.pdf" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-
         </div>
     </div>
 </section>
@@ -912,29 +581,25 @@
     </div>
 </footer>
 
-<!-- ─────────── SCRIPTS ─────────── -->
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 <script>
-// Smooth nav scroll
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth' }); }
     });
 });
 
-// Scroll reveal
-const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
+    entries.forEach(entry => {
         if (entry.isIntersecting) {
-            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+            entry.target.classList.add('visible');
             observer.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1 });
-reveals.forEach(el => observer.observe(el));
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 // Contact form
 const form = document.getElementById('contactForm');
@@ -945,10 +610,8 @@ form.addEventListener('submit', function(e) {
     }
     const rc = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : 'skip';
     if (!rc) { alert('Пожалуйста, подтвердите, что вы не робот'); return; }
-
     const data = new FormData(form);
     if (rc !== 'skip') data.append('g-recaptcha-response', rc);
-
     fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
         .then(r => {
             if (r.ok) { alert('Сообщение успешно отправлено!'); form.reset(); if(typeof grecaptcha!=='undefined') grecaptcha.reset(); }
@@ -957,6 +620,5 @@ form.addEventListener('submit', function(e) {
         .catch(() => alert('Ошибка отправки. Попробуйте позже.'));
 });
 </script>
-
 </body>
 </html>
