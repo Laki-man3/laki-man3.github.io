@@ -3,869 +3,960 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QA.Man</title>
+    <title>QA.Man — Семён Максимович</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2282%22>⚙️</text></svg>" type="image/svg+xml">
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #4f46e5;
-            --dark: #1e293b;
-            --light: #f1f5f9;
-            --accent: #06b6d4;
-            --success: #10b981;
-            --error: #ef4444;
-            --text: #334155;
+            --bg:       #050810;
+            --bg2:      #0a0f1e;
+            --panel:    rgba(10,18,40,0.75);
+            --border:   rgba(0,230,255,0.12);
+            --primary:  #00e5ff;
+            --secondary:#7c3aed;
+            --accent:   #00ff9d;
+            --warn:     #ff6b35;
+            --text:     #c8d8f0;
+            --muted:    #4a5e80;
+            --white:    #eef4ff;
+            --glow-c:   0 0 18px rgba(0,229,255,0.45);
+            --glow-g:   0 0 18px rgba(0,255,157,0.45);
+            --font-head: 'Syne', sans-serif;
+            --font-mono: 'Space Mono', monospace;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
+
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 15px;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+
+        /* ─── NOISE OVERLAY ─── */
+        body::before {
+            content:'';
+            position:fixed; inset:0; z-index:0; pointer-events:none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.55;
         }
-        
+
+        /* ─── GRID BG ─── */
+        body::after {
+            content:'';
+            position:fixed; inset:0; z-index:0; pointer-events:none;
+            background-image:
+                linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position:relative; z-index:1; }
+
+        /* ─── HEADER ─── */
         header {
-            padding: 2rem 0;
-            background-color: rgba(30, 41, 59, 0.95);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky; top:0; z-index: 200;
+            padding: 0;
+            background: rgba(5,8,16,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
         }
-        
+
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display:flex; justify-content:space-between; align-items:center;
+            height: 64px;
         }
-        
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
+            font-family: var(--font-head);
+            font-size: 1.25rem; font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+            text-shadow: var(--glow-c);
         }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
+        .logo span { color: var(--accent); }
+
+        .nav-links { display:flex; gap:2rem; list-style:none; }
         .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            transition: color 0.3s;
+            color: var(--muted);
+            text-decoration:none;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.25s, text-shadow 0.25s;
         }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
+        .nav-links a:hover { color: var(--primary); text-shadow: var(--glow-c); }
+
+        /* ─── HERO ─── */
         .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            min-height: 100vh;
+            display:flex; align-items:center;
+            position:relative; overflow:hidden;
+            padding: 6rem 0 4rem;
         }
-        
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 80% 10%, var(--accent), transparent 40%),
-                        radial-gradient(circle at 20% 80%, var(--secondary), transparent 40%);
-            opacity: 0.15;
-            z-index: -1;
+
+        /* Orbs */
+        .orb {
+            position:absolute; border-radius:50%;
+            filter: blur(100px); opacity:0.18; pointer-events:none; z-index:0;
         }
-        
-        .hero-content {
-            max-width: 800px;
+        .orb-1 { width:600px; height:600px; background:var(--primary);  top:-150px; right:-100px; animation: drift 12s ease-in-out infinite alternate; }
+        .orb-2 { width:500px; height:500px; background:var(--secondary); bottom:-100px; left:-80px;  animation: drift 15s ease-in-out infinite alternate-reverse; }
+        .orb-3 { width:300px; height:300px; background:var(--accent);   top:40%; left:40%;           animation: drift 9s  ease-in-out infinite alternate; }
+
+        @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.07); } }
+
+        .hero-content { position:relative; z-index:1; }
+
+        .hero-badge {
+            display:inline-flex; align-items:center; gap:0.5rem;
+            padding: 0.35rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.72rem; letter-spacing: 0.1em; text-transform:uppercase;
+            color: var(--accent); background: rgba(0,255,157,0.06);
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.6s ease both;
         }
-        
+        .hero-badge::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; animation: pulse 2s infinite; }
+
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.4);} }
+
         h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--accent), var(--primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-family: var(--font-head);
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.6s 0.1s ease both;
         }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            color: #94a3b8;
+        h1 .name { color: var(--primary); text-shadow: var(--glow-c); }
+        h1 .role { color: var(--accent); text-shadow: var(--glow-g); }
+
+        .hero-desc {
+            font-size: 1rem; color: var(--text);
+            max-width: 560px; margin-bottom: 2.5rem;
+            animation: fadeUp 0.6s 0.2s ease both;
         }
-        
+
+        .hero-actions { display:flex; flex-wrap:wrap; gap:1rem; animation: fadeUp 0.6s 0.3s ease both; }
+
         .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 500;
-            transition: all 0.3s;
-            margin-right: 1rem;
-            margin-bottom: 1rem;
-            border: none;
-            cursor: pointer;
+            display:inline-flex; align-items:center; gap:0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem; font-weight: 700;
+            text-decoration:none; cursor:pointer;
+            border: none; transition: all 0.25s;
+            letter-spacing: 0.04em;
         }
-        
-        .btn:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        .btn-primary {
+            background: var(--primary); color: #000;
         }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
+        .btn-primary:hover { background: #33ecff; box-shadow: 0 0 24px rgba(0,229,255,0.5); transform: translateY(-2px); }
+
+        .btn-ghost {
+            background: transparent; color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn-ghost:hover { background: rgba(0,229,255,0.1); box-shadow: var(--glow-c); transform: translateY(-2px); }
+
+        .btn-tg {
+            background: rgba(10,18,40,0.8); color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-tg:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+
+        /* hero stats */
+        .hero-stats {
+            display:flex; gap:2.5rem; margin-top: 3.5rem;
+            animation: fadeUp 0.6s 0.4s ease both;
+        }
+        .stat { display:flex; flex-direction:column; }
+        .stat-num {
+            font-family: var(--font-head);
+            font-size: 2rem; font-weight: 800;
+            color: var(--primary); line-height:1;
+        }
+        .stat-label { font-size: 0.72rem; color: var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:0.25rem; }
+
+        /* ─── SECTION BASE ─── */
+        .section { padding: 6rem 0; }
+        .section-header { text-align:center; margin-bottom: 4rem; }
+
+        .section-tag {
+            display:inline-block;
+            font-size: 0.72rem; letter-spacing: 0.12em; text-transform:uppercase;
+            color: var(--accent); margin-bottom: 0.75rem;
+        }
+
+        h2 {
+            font-family: var(--font-head);
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800; letter-spacing:-0.03em;
+            color: var(--white);
+            position:relative; display:inline-block;
+        }
+
+        /* ─── ABOUT TERMINAL ─── */
+        .terminal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow:hidden;
+            box-shadow: 0 0 60px rgba(0,229,255,0.07);
+        }
+        .terminal-bar {
+            display:flex; align-items:center; gap:0.6rem;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--border);
+        }
+        .dot { width:12px; height:12px; border-radius:50%; }
+        .dot-r{background:#ff5f57;} .dot-y{background:#febc2e;} .dot-g{background:#28c840;}
+        .t-title { font-size:0.8rem; color: var(--muted); margin-left:0.5rem; }
+
+        .terminal-body { padding: 1.5rem 1.75rem; line-height: 1.8; }
+        .t-cmd { color: var(--white); margin-bottom:0.3rem; }
+        .t-cmd::before { content:"$ "; color: var(--accent); }
+        .t-out { color: var(--muted); margin-bottom: 1.5rem; padding-left:1.1rem; border-left: 2px solid rgba(0,229,255,0.15); }
+        .t-out strong { color: var(--text); }
+        .t-cursor::after { content:"▋"; animation: blink 1s step-end infinite; color: var(--primary); }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+        /* ─── SKILLS ─── */
+        .skills-grid {
+            display:grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .skill-item {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .skill-item:hover {
+            border-color: rgba(0,229,255,0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,229,255,0.1);
+        }
+        .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+        .skill-item h3 {
+            font-family: var(--font-head);
+            font-size: 0.95rem; font-weight: 700;
+            color: var(--primary); margin-bottom: 0.5rem;
+        }
+        .skill-item p { font-size: 0.82rem; color: var(--muted); line-height:1.6; }
+
+        /* flat all-skills block */
+        .skills-flat {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem 2.5rem;
+            backdrop-filter: blur(10px);
+        }
+        .skill-list { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+        .skill-list li {
+            display:flex; align-items:flex-start; gap:0.75rem;
+            font-size: 0.88rem; color: var(--text);
+        }
+        .skill-list li::before { content:"→"; color: var(--accent); flex-shrink:0; margin-top:2px; }
+
+        /* ─── EXPERIENCE TIMELINE ─── */
+        .timeline { position:relative; padding-left: 2rem; }
+        .timeline::before {
+            content:''; position:absolute; left:0; top:8px; bottom:8px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent);
+        }
+
+        .timeline-item {
+            position:relative;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .timeline-item:hover { border-color: rgba(0,229,255,0.35); box-shadow: 0 8px 32px rgba(0,229,255,0.08); }
+
+        .timeline-item::before {
+            content:''; position:absolute; left:-2.6rem; top:1.75rem;
+            width:14px; height:14px; border-radius:50%;
+            background: var(--primary);
+            box-shadow: var(--glow-c);
+            border: 2px solid var(--bg);
+        }
+
+        .tl-date {
+            font-size: 0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+            color: var(--accent); margin-bottom:0.4rem;
+        }
+        .tl-company {
+            font-family: var(--font-head);
+            font-size: 1.25rem; font-weight: 800;
+            color: var(--white); margin-bottom: 0.3rem;
+        }
+        .tl-role { font-size: 0.82rem; color: var(--muted); margin-bottom: 1rem; }
+        .tl-list { list-style:none; display:flex; flex-direction:column; gap:0.4rem; }
+        .tl-list li { font-size: 0.85rem; color: var(--text); display:flex; gap:0.6rem; }
+        .tl-list li::before { content:"▸"; color: var(--primary); flex-shrink:0; }
+
+        /* ─── PROJECTS ─── */
+        .projects-grid {
+            display:flex; flex-direction:column; gap: 1.5rem;
+        }
+
+        .project-card {
+            display:grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1.75rem;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            text-decoration:none; color:inherit;
+        }
+        .project-card:hover {
+            border-color: rgba(0,229,255,0.4);
+            transform: translateX(6px);
+            box-shadow: 0 0 40px rgba(0,229,255,0.08);
+        }
+
+        .project-icon {
+            width:100px; height:100px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(124,58,237,0.15));
+            border: 1px solid var(--border);
+            display:flex; align-items:center; justify-content:center;
+            color: var(--primary); font-size: 2.5rem;
+            flex-shrink:0;
+        }
+
+        .project-body { display:flex; flex-direction:column; justify-content:center; }
+        .project-body h3 {
+            font-family: var(--font-head);
+            font-size: 1.15rem; font-weight: 700;
+            color: var(--white); margin-bottom: 0.5rem;
+        }
+        .project-body p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; line-height:1.6; }
+
+        .tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+        .tag {
+            padding: 0.25rem 0.7rem;
+            border-radius: 100px;
+            font-size: 0.72rem; letter-spacing:0.06em;
+            background: rgba(0,229,255,0.08);
+            border: 1px solid rgba(0,229,255,0.18);
             color: var(--primary);
         }
-        
-        .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
+
+        .project-link {
+            display:inline-flex; align-items:center; gap:0.4rem;
+            margin-top:0.75rem;
+            font-size: 0.78rem; font-weight:700;
+            color: var(--accent); text-decoration:none;
+            letter-spacing:0.05em; text-transform:uppercase;
+            transition: gap 0.2s;
         }
-        
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .section {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, var(--accent), var(--primary));
-        }
-        
-        .skills-container {
-            display: grid;
+        .project-link:hover { gap: 0.7rem; }
+
+        /* ─── COURSES ─── */
+        .courses-grid {
+            display:grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            gap: 1.25rem;
         }
-        
-        .skill-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 2rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .course-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            display:flex; flex-direction:column;
         }
-        
-        .skill-card:hover {
+        .course-card:hover {
+            border-color: rgba(0,255,157,0.35);
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0,255,157,0.08);
         }
-        
-        .skill-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
+        .course-card h3 {
+            font-family: var(--font-head);
+            font-size: 1rem; font-weight: 700;
+            color: var(--white); margin-bottom: 0.4rem; line-height:1.3;
         }
-        
-        .skill-list {
-            list-style: none;
-        }
-        
-        .skill-list li {
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .skill-list li::before {
-            content: "→";
-            color: var(--accent);
-            margin-right: 0.5rem;
-        }
-        
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .project-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .project-img {
-            width: 100%;
-            height: 200px;
-            background-color: #2d3748;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-            font-size: 3rem;
-        }
-        
-        .project-content {
-            padding: 1.5rem;
-        }
-        
-        .project-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-        
-        .project-techs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+        .course-date { font-size: 0.75rem; color: var(--accent); margin-bottom: 1rem; letter-spacing:0.05em; }
+        .course-card .tags { margin-top: auto; padding-top: 1rem; }
+        .course-cert {
+            display:inline-flex; align-items:center; gap:0.4rem;
             margin-top: 1rem;
+            padding: 0.45rem 1rem;
+            border-radius:8px;
+            background: rgba(0,255,157,0.08);
+            border: 1px solid rgba(0,255,157,0.2);
+            color: var(--accent); font-size:0.78rem; font-weight:700;
+            text-decoration:none; letter-spacing:0.05em;
+            transition: background 0.2s, box-shadow 0.2s;
         }
-        
-        .tech-tag {
-            padding: 0.3rem 0.8rem;
-            background-color: rgba(79, 70, 229, 0.1);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--accent);
+        .course-cert:hover { background: rgba(0,255,157,0.18); box-shadow: var(--glow-g); }
+
+        /* ─── CONTACT ─── */
+        .contact-wrapper {
+            display:grid; grid-template-columns: 1fr 1.2fr; gap: 3rem;
+            align-items:start;
         }
-        
+        .contact-info h3 {
+            font-family: var(--font-head);
+            font-size: 1.5rem; font-weight: 800;
+            color: var(--white); margin-bottom: 1rem;
+        }
+        .contact-info p { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; }
+        .contact-link {
+            display:inline-flex; align-items:center; gap:0.6rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            background: rgba(0,229,255,0.06);
+            border: 1px solid var(--border);
+            color: var(--primary); font-size:0.85rem; font-weight:700;
+            text-decoration:none;
+            transition: all 0.25s;
+        }
+        .contact-link:hover { background: rgba(0,229,255,0.14); border-color: var(--primary); box-shadow: var(--glow-c); transform:translateY(-2px); }
+
         .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.05);
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
             padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--light);
-        }
-        
+
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display:block; font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--muted); margin-bottom:0.5rem; }
         .form-control {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--light);
+            width:100%; padding: 0.75rem 1rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white); font-family: var(--font-mono); font-size:0.85rem;
+            transition: border-color 0.25s;
         }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
+        .form-control:focus { outline:none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
+        textarea.form-control { min-height:130px; resize:vertical; }
+        .btn-submit {
+            width:100%; padding: 0.85rem;
+            background: var(--primary); color:#000;
+            border:none; border-radius:8px;
+            font-family: var(--font-mono); font-size:0.88rem; font-weight:700;
+            cursor:pointer; letter-spacing:0.06em; text-transform:uppercase;
+            transition: all 0.25s;
         }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
+        .btn-submit:hover { background:#33ecff; box-shadow: 0 0 24px rgba(0,229,255,0.5); transform:translateY(-2px); }
+
+        /* reCAPTCHA centering */
+        .recaptcha-wrap { display:flex; justify-content:center; margin-bottom:1rem; }
+
+        /* ─── FOOTER ─── */
         footer {
-            background-color: rgba(15, 23, 42, 0.8);
-            padding: 2rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 0;
+            text-align:center;
+            background: rgba(5,8,16,0.6);
         }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a {
-            color: var(--light);
-            font-size: 1.5rem;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: var(--accent);
-        }
-        
-        /* Terminal effect for experience section */
-        .terminal {
-            background-color: #0f172a;
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 2rem;
-            font-family: 'Courier New', Courier, monospace;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .terminal-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .terminal-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-right: 1rem;
-        }
-        
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .terminal-button.red {
-            background-color: var(--error);
-        }
-        
-        .terminal-button.yellow {
-            background-color: #fbbf24;
-        }
-        
-        .terminal-button.green {
-            background-color: var(--success);
-        }
-        
-        .terminal-title {
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-        
-        .terminal-body {
-            line-height: 1.4;
-        }
-        
-        .command {
-            color: var(--light);
-            margin-bottom: 0.5rem;
-        }
-        
-        .command::before {
-            content: "$ ";
-            color: var(--accent);
-        }
-        
-        .response {
-            color: #94a3b8;
-            margin-bottom: 1rem;
-            padding-left: 1rem;
-        }
-        
-        .blink {
-            animation: blink 1s step-end infinite;
-        }
-        
-        .command-prompt::after {
-            content: "▋";
-            animation: blink 1s step-end infinite;
-        }
-        
-        @keyframes blink {
-            from, to {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-        
-        /* Animation */
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
-    
-    .subtitle {
-        font-size: 1.2rem;
-    }
-    
-    nav {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav-links {
-        gap: 0.5rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 1rem;
-    }
-    
-    .logo {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    
-    .projects-container,
-    .skills-container {
-        grid-template-columns: 1fr;
-    }
-}
+        footer p { font-size:0.78rem; color: var(--muted); }
+        .foot-links { display:flex; justify-content:center; gap:1.5rem; margin-top:1rem; }
+        .foot-links a { color: var(--muted); transition: color 0.2s; }
+        .foot-links a:hover { color: var(--primary); }
 
-@media (max-width: 480px) {
-    .nav-links a {
-        font-size: 0.9rem;
-    }
-}
-	    
-	.btn-more {
-    		display: inline-block;
-   		padding: 0.6rem 1.2rem;
-    		background-color: var(--accent);
-    		color: white;
-    		text-decoration: none;
-   		border-radius: 5px;
-    		font-weight: 500;
-    		transition: all 0.3s;
-    		margin-top: 1rem;
-    		text-align: center;
-	}
+        /* ─── DIVIDER ─── */
+        .divider {
+            height:1px;
+            background: linear-gradient(to right, transparent, var(--border) 30%, var(--border) 70%, transparent);
+            margin: 0;
+        }
 
-	.btn-more:hover {
-    		background-color: var(--primary);
-    		transform: translateY(-2px);
-    		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-	}
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from { opacity:0; transform: translateY(24px); }
+            to   { opacity:1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity:0; transform:translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity:1; transform:none; }
+
+        /* ─── RESPONSIVE ─── */
+        @media(max-width:768px) {
+            .nav-links { gap:1rem; }
+            .nav-links a { font-size:0.7rem; }
+            .hero-stats { gap:1.5rem; }
+            .project-card { grid-template-columns:1fr; }
+            .project-icon { width:60px; height:60px; font-size:1.75rem; }
+            .contact-wrapper { grid-template-columns:1fr; }
+            .skills-grid, .courses-grid { grid-template-columns:1fr; }
+        }
+        @media(max-width:480px) {
+            .nav-links { gap:0.6rem; flex-wrap:wrap; justify-content:center; }
+            h1 { font-size: 2.2rem; }
+        }
     </style>
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2282%22>⚙️</text></svg>" type="image/svg+xml">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">QA вам не QC</div>
-                <div class="nav-links">
-                    <a href="#about">Обо мне</a>
-                    <a href="#skills">Навыки</a>
-                    <a href="#experience">Опыт</a>
-                    <a href="#projects">Проекты</a>
-					<a href="#courses">Курсы</a>
-                    <a href="#contact">Контакты</a>
-                </div>
-            </nav>
-        </div>
-    </header>
-    
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <h1>Семён Максимович, <br>QA-инженер</h1>
-                <p class="subtitle">Обеспечение качества программного обеспечения через тщательное тестирование и контроль качества</p>
-                <div>
-                    <a href="#contact" class="btn">Связаться со мной</a>
-                    <a href="#projects" class="btn btn-outline">Посмотреть мои работы</a>
-                </div>
-                <div style="margin-top: 2rem;">
-                    <a href="https://github.com/Laki-man3" target="_blank" class="btn social-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                        GitHub
-                    </a>
-                    <a href="https://t.me/PowerOfNsk" target="_blank" class="btn social-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.357.561.197.105.43.105.627 0l2.89-1.583 4.162 3.086a2.242 2.242 0 0 0 3.504-1.498l3.11-15.087A2.24 2.24 0 0 0 21.198 2.433Z"/></svg>
-                        Телеграм
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="section" id="about">
-        <div class="container">
-            <h2 class="section-title">Обо мне</h2>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-buttons">
-                        <div class="terminal-button red"></div>
-                        <div class="terminal-button yellow"></div>
-                        <div class="terminal-button green"></div>
-                    </div>
-                    <div class="terminal-title">about.sh</div>
-                </div>
-                <div class="terminal-body">
-                    <div class="command">whoami</div>
-                    <div class="response">
-                        Меня зовут Семён, я QA-инженер и студент 3 курса НГТУ "Информационные системы и технологии". Увлекаюсь ручным тестирование: тестирую формы, web-приложения, мобильные приложения, api. Активно изучаю автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления и предотвращения проблем до того, как они попадут в продакшн. Я верю в совместное тестирование, которое приносит пользу всему жизненному циклу разработки.
-                    </div>
-                    <div class="command">cat mission.txt</div>
-                    <div class="response">
-                        Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что программное обеспечение не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей. Я стремлюсь к постоянному обучению и поддержанию актуальности в отношении новейших методологий и инструментов тестирования.
-                    </div>
-                    <div class="command command-prompt">ls -la qualities/</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="section" id="skills">
+
+<!-- ─────────── HEADER ─────────── -->
+<header>
     <div class="container">
-        <h2 class="section-title">Технические навыки</h2>
-        <div class="skill-card fade-in" style="width: 100%;">
+        <nav>
+            <div class="logo">QA<span>.</span>Man</div>
+            <ul class="nav-links">
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#experience">Опыт</a></li>
+                <li><a href="#projects">Проекты</a></li>
+                <li><a href="#courses">Курсы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ─────────── HERO ─────────── -->
+<section class="hero">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">Доступен для новых проектов</div>
+            <h1>
+                <span class="name">Семён Максимович</span><br>
+                <span class="role">QA-инженер</span>
+            </h1>
+            <p class="hero-desc">
+                Обеспечение качества программного обеспечения через тщательное тестирование — ручное и автоматизированное. Нахожу баги раньше, чем их найдут пользователи.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Связаться
+                </a>
+                <a href="#projects" class="btn btn-ghost">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    Проекты
+                </a>
+                <a href="https://t.me/PowerOfNsk" target="_blank" class="btn btn-tg">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.357.561.197.105.43.105.627 0l2.89-1.583 4.162 3.086a2.242 2.242 0 0 0 3.504-1.498l3.11-15.087A2.24 2.24 0 0 0 21.198 2.433Z"/></svg>
+                    Telegram
+                </a>
+                <a href="https://github.com/Laki-man3" target="_blank" class="btn btn-tg">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    GitHub
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-num">2+</span>
+                    <span class="stat-label">Года опыта</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">3</span>
+                    <span class="stat-label">Проекта</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num">5</span>
+                    <span class="stat-label">Сертификатов</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────── ABOUT ─────────── -->
+<section class="section" id="about">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-tag">// about</div>
+            <h2>Обо мне</h2>
+        </div>
+        <div class="terminal reveal">
+            <div class="terminal-bar">
+                <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+                <span class="t-title">about.sh</span>
+            </div>
+            <div class="terminal-body">
+                <div class="t-cmd">whoami</div>
+                <div class="t-out">
+                    Меня зовут <strong>Семён</strong>, я QA-инженер и студент 3 курса НГТУ «Информационные системы и технологии».<br>
+                    Увлекаюсь ручным тестированием: тестирую формы, web-приложения, мобильные приложения, API.<br>
+                    Активно изучаю автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления и предотвращения проблем до того, как они попадут в продакшн.
+                </div>
+                <div class="t-cmd">cat mission.txt</div>
+                <div class="t-out">
+                    Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей. Стремлюсь к постоянному обучению и актуальности в отношении новейших методологий тестирования.
+                </div>
+                <div class="t-cmd t-cursor">ls -la qualities/</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────── SKILLS ─────────── -->
+<section class="section" id="skills">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-tag">// skills</div>
+            <h2>Технические навыки</h2>
+        </div>
+        <div class="skills-flat reveal">
             <ul class="skill-list">
-                <li>Знание моделей, методологий разработки ПО и тестирования.</li>
-                <li>Понимание работы компьютерных сетей(модель ISO/OSI, стек протоколов TCP/IP), веб-приложений, серверов, протоколов прикладного уровня(HTTP, FTP, POP3 и др.).</li>
-                <li>Умение пользоваться инструментами разработки и тестирования - Jira, Figma, Git, Linux, Devtools.</li>
-                <li>Навыки чтения, анализа и написания кода на Python и C++.</li>
-                <li>Знания HTML, CSS и JavaScript.</li>
-                <li>Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их составление.</li>
-                <li>Опыт тестирования API в Postman, мобильных приложений в Charles proxy.</li>
-				<li>Опыт написания автотестов.</li>
-				<li>Опыт создания современных сайтов-портфолио.</li>
-				<li>Опыт разработки сложных программ для визуализации.</li>
+                <li>Знание моделей, методологий разработки ПО и тестирования, REST, SOAP, GraphQL и других архитектурных решений</li>
+                <li>Понимание работы компьютерных сетей (модель ISO/OSI, стек протоколов TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.)</li>
+                <li>Умение пользоваться инструментами разработки (DevTools, Jira, Figma, Git, Linux)</li>
+                <li>Навыки чтения, анализа и написания кода на Python, Java</li>
+                <li>Знание HTML, CSS и JavaScript</li>
+                <li>Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование</li>
+                <li>Опыт тестирования REST API</li>
+                <li>Опыт написания автотестов</li>
             </ul>
         </div>
+
+        <div class="skills-grid" style="margin-top:1.25rem;">
+            <div class="skill-item reveal">
+                <div class="skill-icon">🧪</div>
+                <h3>Ручное тестирование</h3>
+                <p>Web, Mobile, API — функциональное, регрессионное, smoke, exploratory</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">🤖</div>
+                <h3>Автоматизация</h3>
+                <p>Selenium, Playwright, Pytest, Cypress — написание и поддержка тест-фреймворков</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">🔌</div>
+                <h3>API тестирование</h3>
+                <p>Postman, REST/HTTP, Charles Proxy, перехват и анализ трафика</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">📋</div>
+                <h3>Тест-документация</h3>
+                <p>Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">⚙️</div>
+                <h3>Инструменты</h3>
+                <p>Jira, Git, Linux, Figma, DevTools, CI/CD интеграции</p>
+            </div>
+            <div class="skill-item reveal">
+                <div class="skill-icon">💻</div>
+                <h3>Разработка</h3>
+                <p>Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно</p>
+            </div>
+        </div>
     </div>
 </section>
-    
-    <section class="section" id="experience">
-        <div class="container">
-            <h2 class="section-title">Опыт</h2>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-buttons">
-                        <div class="terminal-button red"></div>
-                        <div class="terminal-button yellow"></div>
-                        <div class="terminal-button green"></div>
-                    </div>
-                    <div class="terminal-title">career_timeline.log</div>
-                </div>
-                <div class="terminal-body">
-                    <div class="command">tail -n 20 career_timeline.log</div>
-                    <div class="response">
-                        <p><strong style="color: var(--accent)">14.03.2023-13.06.2023 | QA-manual @ Элтекс</strong><br>
-                        • Ручное тестированием сетевых решений модели MES<br>
-						<p><strong style="color: var(--accent)">01.07.2023 - настоящее время | QA-manual @ ГК "Иннотех"</strong><br>
-                        • Проектирование и планирование тестирования<br>
-						• Выполнение комплексного тестирования<br>
-						• Управление дефектами и качеством<br>
-						• Работа с тестовыми данными и окружением<br>
-						• Отчётность и анализ результатов<br>
-						• Интеграция в процессы разработки<br>
-						• Демонстрация функционала(ПСИ)<br>
-                    </div>
-                    <div class="command command-prompt">grep "достижения" career_highlights.log</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="section" id="projects">
+
+<div class="divider"></div>
+
+<!-- ─────────── EXPERIENCE ─────────── -->
+<section class="section" id="experience">
     <div class="container">
-        <h2 class="section-title">Проекты</h2>
-        <div class="projects-container">
-            <div class="project-card fade-in">
-                <div class="project-img">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                </div>
-                <div class="project-content">
-                    <h3>Пакет автотестов для тестирования web-приложения</h3>
-                    <p>Разработал комплексный набор автоматизированных тестов для проверки функциональности веб-приложения с использованием Selenium, Playwright, Cypress, Appium, языков Java, JavaScript и Python.</p>
-                    <div class="project-techs">
-                        <span class="tech-tag">Python</span>
-						<span class="tech-tag">Selenium</span>
-						<span class="tech-tag">PyTest</span>
-						<span class="tech-tag">Automation</span>
-						<span class="tech-tag">JavaScript</span>
-						<span class="tech-tag">Playwright</span>
-                    </div>
-					<br>
-			<a href="https://github.com/Laki-man3/QA/tree/main/Автотесты(демо)" target="_blank" class="btn-more">Подробнее</a>
-                </div>
-            </div>
-            
-            <div class="project-card fade-in">
-    <div class="project-img">
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-    </div>
-    <div class="project-content">
-        <h3>Автоматизированный тестовый фреймворк</h3>
-		<br>
-        <p>Разработал универсальный фреймворк для автоматизации тестирования веб-приложений на Python с использованием Selenium и Pytest. Фреймворк включает в себя систему отчетности, скриншоты при ошибках, параллельное выполнение тестов и интеграцию с CI/CD системами для непрерывного тестирования.</p>
-        <div class="project-techs">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Selenium</span>
-            <span class="tech-tag">Pytest</span>
-            <span class="tech-tag">CI/CD</span>
+        <div class="section-header reveal">
+            <div class="section-tag">// experience</div>
+            <h2>Опыт работы</h2>
         </div>
-		<br>
-	    <a href="https://github.com/Laki-man3/QA/tree/main/test-automation-framework" target="_blank" class="btn-more">Подробнее</a>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="tl-date">01.07.2023 — настоящее время</div>
+                <div class="tl-company">ГК «Иннотех»</div>
+                <div class="tl-role">QA Manual Engineer</div>
+                <ul class="tl-list">
+                    <li>Проектирование и планирование тестирования</li>
+                    <li>Выполнение комплексного тестирования (функциональное, регрессионное, smoke)</li>
+                    <li>Управление дефектами и отслеживание качества в Jira</li>
+                    <li>Работа с тестовыми данными и тестовым окружением</li>
+                    <li>Отчётность и анализ результатов тестирования</li>
+                    <li>Интеграция в процессы разработки (Agile/Scrum)</li>
+                    <li>Демонстрация функционала заказчику (ПСИ)</li>
+                </ul>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="tl-date">14.03.2023 — 13.06.2023</div>
+                <div class="tl-company">Элтекс</div>
+                <div class="tl-role">QA Manual Engineer (стажировка)</div>
+                <ul class="tl-list">
+                    <li>Ручное тестирование сетевых решений серии MES</li>
+                    <li>Написание тест-кейсов и баг-репортов</li>
+                    <li>Работа с документацией на сетевое оборудование</li>
+                </ul>
+            </div>
+        </div>
     </div>
-</div>
-            
-            <div class="project-card fade-in">
-                <div class="project-img">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                </div>
-                <div class="project-content">
-                    <h3>Комплект тестовой документации</h3>
-                    <p>Разработал обширную коллекцию профессиональной тестовой документации, включающую детализированные тест-кейсы, структурированные баг-репорты и решения тестовых заданий от ведущих IT-компаний с применением современных методологий тестирования.</p>
-                    <div class="project-techs">
-                        <span class="tech-tag">Test Cases</span>
-                        <span class="tech-tag">Bug Reports</span>
-                        <span class="tech-tag">Test Documentation</span>
-                        <span class="tech-tag">QA Methodology</span>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────── PROJECTS ─────────── -->
+<section class="section" id="projects">
+    <div class="container">
+        <div class="section-header reveal">
+            <div class="section-tag">// projects</div>
+            <h2>Проекты</h2>
+        </div>
+        <div class="projects-grid">
+
+            <div class="project-card reveal" style="display:grid;">
+                <div class="project-icon">🧩</div>
+                <div class="project-body">
+                    <h3>Пакет автотестов для web-приложения</h3>
+                    <p>Комплексный набор автоматизированных тестов с использованием Selenium, Playwright, Cypress, Appium на Python и JavaScript. Покрывает UI, API и E2E-сценарии.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Selenium</span>
+                        <span class="tag">PyTest</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Playwright</span>
+                        <span class="tag">Automation</span>
                     </div>
-			<a href="https://github.com/Laki-man3/QA/tree/main" target="_blank" class="btn-more">Подробнее</a>
+                    <a href="https://github.com/Laki-man3/QA/tree/main/Автотесты(демо)" target="_blank" class="project-link">
+                        Смотреть на GitHub →
+                    </a>
                 </div>
             </div>
-    
+
+            <div class="project-card reveal" style="display:grid;">
+                <div class="project-icon">🏗️</div>
+                <div class="project-body">
+                    <h3>Автоматизированный тестовый фреймворк</h3>
+                    <p>Универсальный фреймворк для автоматизации тестирования на Python + Selenium + Pytest. Включает систему отчётности, скриншоты при ошибках, параллельное выполнение и CI/CD интеграцию.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Selenium</span>
+                        <span class="tag">Pytest</span>
+                        <span class="tag">CI/CD</span>
+                        <span class="tag">Allure</span>
+                    </div>
+                    <a href="https://github.com/Laki-man3/QA/tree/main/test-automation-framework" target="_blank" class="project-link">
+                        Смотреть на GitHub →
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card reveal" style="display:grid;">
+                <div class="project-icon">📄</div>
+                <div class="project-body">
+                    <h3>Комплект тестовой документации</h3>
+                    <p>Обширная коллекция профессиональной тест-документации: детализированные тест-кейсы, баг-репорты, решения тестовых заданий от ведущих IT-компаний с применением современных методологий.</p>
+                    <div class="tags">
+                        <span class="tag">Test Cases</span>
+                        <span class="tag">Bug Reports</span>
+                        <span class="tag">Test Documentation</span>
+                        <span class="tag">QA Methodology</span>
+                    </div>
+                    <a href="https://github.com/Laki-man3/QA/tree/main" target="_blank" class="project-link">
+                        Смотреть на GitHub →
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─────────── COURSES ─────────── -->
 <section class="section" id="courses">
     <div class="container">
-        <h2 class="section-title">Курсы и тренинги</h2>
-        <div class="skills-container">
-            <div class="skill-card fade-in">
-                <h3>Ручной тестировщик ПО/QA manual</h3>
-                <p>Дата прохождения: 28.02.2025</p>
-                <div class="project-techs" style="margin-top: 1rem;">
-                    <span class="tech-tag">QA</span>
-                    <span class="tech-tag">Тестирование</span>
-                    <span class="tech-tag">Manual Testing</span>
+        <div class="section-header reveal">
+            <div class="section-tag">// courses</div>
+            <h2>Курсы и сертификаты</h2>
+        </div>
+        <div class="courses-grid">
+
+            <div class="course-card reveal">
+                <h3>Ручной тестировщик ПО / QA Manual</h3>
+                <div class="course-date">📅 28.02.2025 · Stepik</div>
+                <div class="tags">
+                    <span class="tag">QA</span>
+                    <span class="tag">Manual Testing</span>
                 </div>
-                <a href="https://stepik.org/cert/2769477" target="_blank" class="btn-more">Сертификат</a>
+                <a href="https://stepik.org/cert/2769477" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-            
-            <div class="skill-card fade-in">
-                <h3>Тренажёр Тестирование ПО/QA manual</h3>
-                <p>Дата прохождения: 26.02.2025</p>
-                <div class="project-techs" style="margin-top: 1rem;">
-                    <span class="tech-tag">QA</span>
-                    <span class="tech-tag">Bug Reports</span>
-                    <span class="tech-tag">Test Cases</span>
+
+            <div class="course-card reveal">
+                <h3>Тренажёр тестирования ПО / QA Manual</h3>
+                <div class="course-date">📅 26.02.2025 · Stepik</div>
+                <div class="tags">
+                    <span class="tag">Bug Reports</span>
+                    <span class="tag">Test Cases</span>
                 </div>
-                <a href="https://stepik.org/cert/2767015" target="_blank" class="btn-more">Сертификат</a>
+                <a href="https://stepik.org/cert/2767015" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-            
-            <div class="skill-card fade-in">
+
+            <div class="course-card reveal">
                 <h3>Postman-ниндзя: с нуля до автотестов</h3>
-                <p>Дата прохождения: 15.02.2025</p>
-                <div class="project-techs" style="margin-top: 1rem;">
-                    <span class="tech-tag">API Testing</span>
-                    <span class="tech-tag">Postman</span>
-                    <span class="tech-tag">Automation</span>
+                <div class="course-date">📅 15.02.2025 · Stepik</div>
+                <div class="tags">
+                    <span class="tag">API Testing</span>
+                    <span class="tag">Postman</span>
+                    <span class="tag">Automation</span>
                 </div>
-                <a href="https://stepik.org/cert/2756492" target="_blank" class="btn-more">Сертификат</a>
+                <a href="https://stepik.org/cert/2756492" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-            
-            <div class="skill-card fade-in">
-                <h3>Тестирование ПО: Postman для тестирования API</h3>
-                <p>Дата прохождения: 15.02.2025</p>
-                <div class="project-techs" style="margin-top: 1rem;">
-                    <span class="tech-tag">REST API</span>
-                    <span class="tech-tag">Postman</span>
-                    <span class="tech-tag">HTTP</span>
+
+            <div class="course-card reveal">
+                <h3>Postman для тестирования API</h3>
+                <div class="course-date">📅 15.02.2025 · Stepik</div>
+                <div class="tags">
+                    <span class="tag">REST API</span>
+                    <span class="tag">HTTP</span>
+                    <span class="tag">Postman</span>
                 </div>
-                <a href="https://stepik.org/cert/2756165" target="_blank" class="btn-more">Сертификат</a>
+                <a href="https://stepik.org/cert/2756165" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
-			
-			<div class="skill-card fade-in">
+
+            <div class="course-card reveal">
                 <h3>Интенсив по ручному тестированию от T1</h3>
-				<br></br>
-                <p>Дата прохождения: 31.07.2025</p>
-                <div class="project-techs" style="margin-top: 1rem;">
-                    <span class="tech-tag">Manual Testing</span>
-                    <span class="tech-tag">Bug reports</span>
-                    <span class="tech-tag">Test case</span>
+                <div class="course-date">📅 31.07.2025 · T1</div>
+                <div class="tags">
+                    <span class="tag">Manual Testing</span>
+                    <span class="tag">Bug Reports</span>
+                    <span class="tag">Test Cases</span>
                 </div>
-                <a href="https://davtb-teachbase.api.eric.s3storage.ru/system/coursestat/116573/cert/2b06ca199eb84080b88a58a29db4cd7f.pdf" target="_blank" class="btn-more">Сертификат</a>
+                <a href="https://davtb-teachbase.api.eric.s3storage.ru/system/coursestat/116573/cert/2b06ca199eb84080b88a58a29db4cd7f.pdf" target="_blank" class="course-cert">🎓 Сертификат</a>
             </div>
+
         </div>
     </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- ─────────── CONTACT ─────────── -->
 <section class="section" id="contact">
     <div class="container">
-        <h2 class="section-title">Связаться со мной</h2>
-        <div class="contact-links fade-in" style="text-align: center; margin-top: 2rem;">
-            <a href="https://t.me/PowerOfNsk" target="_blank" class="btn social-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.357.561.197.105.43.105.627 0l2.89-1.583 4.162 3.086a2.242 2.242 0 0 0 3.504-1.498l3.11-15.087A2.24 2.24 0 0 0 21.198 2.433Z"/></svg>
-                Телеграм
-            </a>
+        <div class="section-header reveal">
+            <div class="section-tag">// contact</div>
+            <h2>Связаться со мной</h2>
         </div>
-        <p style="text-align: center; margin: 1rem 0; color: var(--light);">Или</p>
-        
-       <form id="contactForm" class="contact-form fade-in" action="https://formspree.io/f/mbldnvlr" method="POST">
-			<div class="form-group">
-				<label for="name">Ваше имя</label>
-				<input type="text" id="name" name="name" class="form-control" required placeholder="Введите ваше имя">
-			</div>
-			<div class="form-group">
-				<label for="email">Ваш email</label>
-				<input type="email" id="email" name="email" class="form-control" required placeholder="Введите ваш email">
-			</div>
-			<div class="form-group">
-				<label for="message">Сообщение</label>
-				<textarea id="message" name="message" class="form-control" required placeholder="Введите ваше сообщение"></textarea>
-			</div>
-    
-    <!-- reCAPTCHA Container -->
-			<div class="form-group" style="display: flex; justify-content: center; margin-bottom: 1rem;">
-				<div id="recaptcha" class="g-recaptcha" data-sitekey="6LcpYukqAAAAANHAGhEhD6kkQf4HD1zoXsKNOyqg"></div>
-			</div>
-    
-			<button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Отправить сообщение</button>
-		</form>
+        <div class="contact-wrapper reveal">
+            <div class="contact-info">
+                <h3>Готов к сотрудничеству</h3>
+                <p>Открыт к новым проектам, стартапам и предложениям о работе. Отвечаю быстро — обычно в течение дня.</p>
+                <a href="https://t.me/PowerOfNsk" target="_blank" class="contact-link">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.357.561.197.105.43.105.627 0l2.89-1.583 4.162 3.086a2.242 2.242 0 0 0 3.504-1.498l3.11-15.087A2.24 2.24 0 0 0 21.198 2.433Z"/></svg>
+                    Написать в Telegram
+                </a>
+            </div>
+            <form id="contactForm" class="contact-form" action="https://formspree.io/f/mbldnvlr" method="POST">
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" name="name" class="form-control" required placeholder="Иван Иванов">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="ivan@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" name="message" class="form-control" required placeholder="Расскажите о своём проекте или предложении..."></textarea>
+                </div>
+                <div class="recaptcha-wrap">
+                    <div class="g-recaptcha" data-sitekey="6LcpYukqAAAAANHAGhEhD6kkQf4HD1zoXsKNOyqg"></div>
+                </div>
+                <button type="submit" class="btn-submit">Отправить сообщение</button>
+            </form>
+        </div>
     </div>
 </section>
-	
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer>
+    <div class="container">
+        <p>© 2026 Семён Максимович · QA Engineer Portfolio</p>
+        <div class="foot-links">
+            <a href="https://github.com/Laki-man3" target="_blank" aria-label="GitHub">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+            <a href="https://t.me/PowerOfNsk" target="_blank" aria-label="Telegram">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.357.561.197.105.43.105.627 0l2.89-1.583 4.162 3.086a2.242 2.242 0 0 0 3.504-1.498l3.11-15.087A2.24 2.24 0 0 0 21.198 2.433Z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<!-- ─────────── SCRIPTS ─────────── -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script>
- 
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-
-            e.preventDefault();
-        
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-        
-            targetSection.scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-   
-    const heroButtons = document.querySelectorAll('.hero-content .btn');
-    heroButtons.forEach(button => {
-        if (button.getAttribute('href') && button.getAttribute('href').startsWith('#')) {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                targetSection.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        }
-    });
-</script>
-<script>	
-document.querySelectorAll('a[href="#contact"]').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetSection = document.querySelector('#contact');
-        targetSection.scrollIntoView({
-            behavior: 'smooth'
-        });
+// Smooth nav scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
     });
 });
-</script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script>
-const form = document.getElementById('contactForm');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const name = document.getElementById('name');
-        const email = document.getElementById('email');
-        const message = document.getElementById('message');
-        const recaptchaResponse = grecaptcha.getResponse();
-        
-        // Проверка заполненности полей и капчи
-        if (!name.value || !email.value || !message.value) {
-            alert('Пожалуйста, заполните все поля');
-            return;
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+            observer.unobserve(entry.target);
         }
-        
-        if (recaptchaResponse.length === 0) {
-            alert('Пожалуйста, подтвердите, что вы не робот');
-            return;
-        }
-        
-        // Создаем FormData и добавляем ответ reCAPTCHA
-        const formData = new FormData(form);
-        formData.append('g-recaptcha-response', recaptchaResponse);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        }).then(response => {
-            if (response.ok) {
-                alert('Сообщение успешно отправлено!');
-                form.reset();
-                grecaptcha.reset(); // Сброс капчи
-            } else {
-                alert('Произошла ошибка при отправке сообщения. Попробуйте позже.');
-            }
-        }).catch(error => {
-            alert('Произошла ошибка при отправке сообщения. Попробуйте позже.');
-        });
     });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Contact form
+const form = document.getElementById('contactForm');
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!form.name.value || !form.email.value || !form.message.value) {
+        alert('Пожалуйста, заполните все поля'); return;
+    }
+    const rc = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : 'skip';
+    if (!rc) { alert('Пожалуйста, подтвердите, что вы не робот'); return; }
+
+    const data = new FormData(form);
+    if (rc !== 'skip') data.append('g-recaptcha-response', rc);
+
+    fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
+        .then(r => {
+            if (r.ok) { alert('Сообщение успешно отправлено!'); form.reset(); if(typeof grecaptcha!=='undefined') grecaptcha.reset(); }
+            else alert('Ошибка отправки. Попробуйте позже.');
+        })
+        .catch(() => alert('Ошибка отправки. Попробуйте позже.'));
+});
 </script>
 
-    <footer>
-        <div class="container">
-            <p>© 2025 QA Engineer Portfolio. All rights reserved.</p>
-            <div class="social-links">
-                <a href="https://github.com/Laki-man3" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                </a>
-                <a href="https://t.me/PowerOfNsk" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-16.88 6.23a2.24 2.24 0 0 0 .258 4.256l4.146 1.196 9.12-6.458-6.902 7.454.46 4.41c.026.242.16.456.
-					
-					
+</body>
+</html>
