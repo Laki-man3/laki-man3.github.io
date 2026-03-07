@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2282%22>⚙️</text></svg>">
-<!-- SVG SPRITE — defined once, referenced via <use> everywhere -->
 <svg hidden aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
     <symbol id="ic-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
@@ -39,7 +38,6 @@
   --glow-c:0 0 18px rgba(0,119,187,.55);
   --glow-g:0 0 18px rgba(238,119,51,.55);
 }
-/* Large-text — single var drives all sizes */
 .lt{--fs:1.22}
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -56,7 +54,6 @@ body::before{
     linear-gradient(rgba(0,229,255,.025) 1px,transparent 1px),
     linear-gradient(90deg,rgba(0,229,255,.025) 1px,transparent 1px);
   background-size:60px 60px;opacity:.7;
-  /* Tell browser this layer won't change — skip repaint */
   will-change:auto;
 }
 .cb::before{opacity:.4}
@@ -80,7 +77,6 @@ body::before{
 .a11y-btn:hover{border-color:var(--primary);color:var(--primary);box-shadow:var(--glow-c);transform:scale(1.08)}
 .a11y-btn.on{background:rgba(0,229,255,.12);border-color:var(--primary);color:var(--primary);box-shadow:var(--glow-c)}
 .a11y-btn[data-mode=cb].on{background:rgba(238,119,51,.12);border-color:var(--accent);color:var(--accent);box-shadow:var(--glow-g)}
-/* Tooltip via CSS only — zero JS */
 .a11y-btn::after,.lang-toggle::after{
   content:attr(data-tip);
   position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);
@@ -768,8 +764,7 @@ const tOvTxt=document.getElementById('tOvTxt');
 const bZoom=document.getElementById('bZoom');
 const bCb=document.getElementById('bCb');
 
-/* ── ① Language toggle ── */
-/* Cache all translatable nodes once on first switch */
+/* ── Language toggle ── */
 let txNodes=null;
 function cacheTx(){
   if(txNodes) return;
@@ -824,7 +819,7 @@ ltog.addEventListener('keydown',function(e){
   if(e.key==='Enter'||e.key===' '){e.preventDefault();switchLang();}
 });
 
-/* ── ② Large text ── */
+/* ── Large text ── */
 bZoom.addEventListener('click',function(){
   isLt=!isLt;
   body.classList.toggle('lt',isLt);
@@ -835,13 +830,12 @@ bZoom.addEventListener('click',function(){
     :(lang==='en'?'Large text':'Крупный текст'));
 });
 
-/* ── ③ Colorblind mode ── */
+/* ── Colorblind mode ── */
 bCb.addEventListener('click',function(){
   isCb=!isCb;
   body.classList.toggle('cb',isCb);
   bCb.classList.toggle('on',isCb);
   bCb.setAttribute('aria-pressed',String(isCb));
-  /* Swap SVG symbol — eye-on = colorblind active (no slash), eye-off = normal */
   bCb.querySelector('use').setAttribute('href',isCb?'#ic-eye-on':'#ic-eye-off');
   bCb.setAttribute('data-tip',isCb
     ?(lang==='en'?'Normal colors':'Обычные цвета')
