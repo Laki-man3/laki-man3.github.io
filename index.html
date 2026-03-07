@@ -793,6 +793,12 @@ function applyLang(l){
   lRu.classList.toggle('al',l!=='en');
   lEn.classList.toggle('al',l==='en');
   ltog.setAttribute('data-tip',l==='en'?'Switch to RU':'RU / EN');
+  bZoom.setAttribute('data-tip', isLt
+    ?(l==='en'?'Normal text':'Обычный текст')
+    :(l==='en'?'Large text':'Крупный текст'));
+  bCb.setAttribute('data-tip', isCb
+    ?(l==='en'?'Normal colors':'Обычные цвета')
+    :(l==='en'?'Colorblind mode':'Режим дальтоника'));
 }
 
 function switchLang(){
