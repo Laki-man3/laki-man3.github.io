@@ -174,19 +174,22 @@ nav{display:flex;justify-content:space-between;align-items:center;height:64px}
   color:var(--accent);background:rgba(0,255,157,.06);margin-bottom:1.5rem;
   animation:fadeUp .6s ease both;
 }
-.hero-badge::before{
-  content:'';width:7px;height:7px;border-radius:50%;
-  background:var(--accent);display:inline-block;
+.hero-badge::before {
+  content:''; width:7px; height:7px; border-radius:50%;
+  background:var(--accent); display:inline-block;
   animation:pulse 2.5s ease-in-out infinite;
+  will-change: opacity, transform;
 }
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
-h1{
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
+h1 {
   font-family:var(--fh);
-  font-size:clamp(2.8rem,6vw,5rem);font-weight:800;
-  line-height:1.05;letter-spacing:-.03em;color:var(--white);
-  margin-bottom:1.5rem;animation:fadeUp .6s .1s ease both;
+  font-size:clamp(2.8rem,6vw,5rem); font-weight:800;
+  line-height:1.05; letter-spacing:-.03em; color:var(--white);
+  margin-bottom:1.5rem; animation:fadeUp .6s .1s ease both;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
-.lt h1{font-size:clamp(3.2rem,7vw,5.8rem)}
+.lt h1 { font-size:clamp(2.4rem,7vw,5.8rem) }
 h1 .name{color:var(--primary);text-shadow:var(--glow-c)}
 h1 .role{color:var(--accent);text-shadow:var(--glow-g)}
 .hero-desc{
@@ -234,8 +237,8 @@ h2{font-family:var(--fh);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;lett
 .t-cmd::before{content:"$ ";color:var(--accent)}
 .t-out{color:var(--muted);margin-bottom:1.5rem;padding-left:1.1rem;border-left:2px solid rgba(0,229,255,.15)}
 .t-out strong{color:var(--text)}
-.t-cursor::after{content:"▋";animation:blink 1s step-end infinite;color:var(--primary)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.t-cursor::after { content:"▋"; animation:blink 1.2s ease-in-out infinite; color:var(--primary); will-change:opacity; }
+@keyframes blink { 0%,100%{opacity:1} 45%,55%{opacity:0} }
 
 /* ── SKILLS ── */
 .skills-flat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:2rem 2.5rem;margin-bottom:1.25rem}
@@ -380,9 +383,10 @@ footer p{font-size:.78rem;color:var(--muted)}
   .a11y-bar{top:auto;bottom:20px;right:50%;transform:translateX(50%);flex-direction:row}
   .a11y-btn::after,.lang-toggle::after{right:auto;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);top:auto}
 }
-@media(max-width:480px){
-  .nav-links{gap:.6rem;flex-wrap:wrap;justify-content:center}
-  h1{font-size:2.2rem}
+@media(max-width:480px) {
+  .nav-links { gap:.6rem; flex-wrap:wrap; justify-content:center }
+  h1 { font-size:2.2rem }
+  .lt h1 { font-size:clamp(1.9rem,8vw,2.6rem) }
 }
 </style>
 </head>
