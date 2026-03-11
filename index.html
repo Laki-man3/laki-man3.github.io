@@ -48,7 +48,7 @@
   font-size:15px;
 }
 
-/* ── LIGHT THEME ── */
+/* LIGHT THEME */
 .lt-mode {
   --bg:#f0f4ff;
   --bg2:#e4eaf8;
@@ -109,7 +109,7 @@
 }
 
 
-/* ── COLORBLIND MODE — DARK THEME ── */
+/* COLORBLIND MODE — DARK THEME */
 /* Uses blue/orange/white palette — safe for deuteranopia, protanopia, tritanopia */
 body.cb {
   --bg:#04090f;
@@ -163,7 +163,7 @@ body.cb .contact-link { color:#4db8ff; }
 body.cb .btn-primary { background:#4db8ff; color:#04090f; }
 body.cb .btn-ghost { color:#4db8ff; border-color:#4db8ff; }
 
-/* ── COLORBLIND MODE — LIGHT THEME ── */
+/* COLORBLIND MODE — LIGHT THEME */
 /* High contrast blue/orange on white — WCAG AA compliant */
 html.lt-mode body.cb {
   --bg:#eef4ff;
@@ -250,7 +250,7 @@ body::before{
 body.cb::before{opacity:.3}
 .container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
-/* ── ACCESSIBILITY TOOLBAR ── */
+/* ACCESSIBILITY TOOLBAR */
 .a11y-bar{
   position:fixed;top:50%;right:20px;transform:translateY(-50%);
   z-index:500;display:flex;flex-direction:column;gap:10px;align-items:center;
@@ -321,7 +321,7 @@ body.cb::before{opacity:.3}
 @keyframes spin{to{transform:rotate(360deg)}}
 .t-sp p{font-size:.8rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 
-/* ── HEADER ── */
+/* HEADER */
 header{
   position:sticky;top:0;z-index:200;
   background:rgba(5,8,16,.92);
@@ -342,7 +342,7 @@ nav{display:flex;justify-content:space-between;align-items:center;height:64px}
 }
 .nav-links a:hover{color:var(--primary);text-shadow:var(--glow-c)}
 
-/* ── HERO ── */
+/* HERO */
 .hero{
   min-height:100vh;display:flex;align-items:center;
   position:relative;overflow:hidden;padding:6rem 0 4rem;
@@ -405,14 +405,14 @@ h1 .role{color:var(--accent);text-shadow:var(--glow-g)}
 .stat-num{font-family:var(--fh);font-size:2rem;font-weight:800;color:var(--primary);line-height:1}
 .stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.25rem}
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 .section{padding:6rem 0}
 .section-header{text-align:center;margin-bottom:4rem}
 .section-tag{display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
 h2{font-family:var(--fh);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.03em;color:var(--white)}
 html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
 
-/* ── TERMINAL ── */
+/* TERMINAL */
 .terminal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 0 60px rgba(0,229,255,.06);transition:background .4s,border-color .4s}
 .terminal-bar{display:flex;align-items:center;gap:.6rem;padding:.85rem 1.2rem;background:rgba(255,255,255,.03);border-bottom:1px solid var(--border)}
 .dot{width:12px;height:12px;border-radius:50%}
@@ -426,7 +426,7 @@ html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
 .t-cursor::after { content:"▋"; animation:blink 1.2s ease-in-out infinite; color:var(--primary); will-change:opacity; }
 @keyframes blink { 0%,100%{opacity:1} 45%,55%{opacity:0} }
 
-/* ── SKILLS ── */
+/* SKILLS */
 .skills-flat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:2rem 2.5rem;margin-bottom:1.25rem}
 .skill-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
 .skill-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem;color:var(--text)}
@@ -438,7 +438,7 @@ html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
 .card h3{font-family:var(--fh);font-size:.95rem;font-weight:700;color:var(--primary);margin-bottom:.5rem}
 .card p{font-size:.82rem;color:var(--muted);line-height:1.6}
 
-/* ── TIMELINE ── */
+/* TIMELINE */
 .timeline{position:relative;padding-left:2rem}
 .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--primary),var(--secondary),transparent)}
 .timeline-item{
@@ -460,7 +460,7 @@ html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
 .tl-list li{font-size:.85rem;color:var(--text);display:flex;gap:.6rem}
 .tl-list li::before{content:"▸";color:var(--primary);flex-shrink:0}
 
-/* ── PROJECTS ── */
+/* PROJECTS */
 .projects-grid{display:flex;flex-direction:column;gap:1.5rem}
 .project-card{
   display:grid;grid-template-columns:100px 1fr;gap:1.75rem;
@@ -487,7 +487,7 @@ html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
 }
 .project-link:hover{gap:.7rem}
 
-/* ── COURSES ── */
+/* COURSES */
 .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
 .course-card{
   background:var(--panel);border:1px solid var(--border);border-radius:14px;
@@ -507,7 +507,7 @@ html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
 }
 .course-cert:hover{background:rgba(0,255,157,.18);box-shadow:var(--glow-g)}
 
-/* ── CONTACT ── */
+/* CONTACT */
 .contact-wrapper{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
 .contact-info h3{font-family:var(--fh);font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:1rem}
 .contact-info p{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem}
@@ -538,7 +538,7 @@ textarea.form-control{min-height:130px;resize:vertical}
 .btn-submit:hover{background:#33ecff;box-shadow:0 0 24px rgba(0,229,255,.5);transform:translateY(-2px)}
 .recaptcha-wrap{display:flex;justify-content:center;margin-bottom:1rem}
 
-/* ── MISC ── */
+/* MISC */
 .divider{height:1px;background:linear-gradient(to right,transparent,var(--border) 30%,var(--border) 70%,transparent)}
 footer{border-top:1px solid var(--border);padding:2.5rem 0;text-align:center;background:rgba(5,8,16,.6);transition:background .4s,border-color .4s}
 footer p{font-size:.78rem;color:var(--muted)}
@@ -547,12 +547,12 @@ footer p{font-size:.78rem;color:var(--muted)}
 .foot-links a:hover{color:var(--primary)}
 .foot-links svg{width:22px;height:22px}
 
-/* ── ANIMATIONS ── */
+/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
 .reveal.vis{opacity:1;transform:none}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
