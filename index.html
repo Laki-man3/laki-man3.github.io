@@ -87,7 +87,7 @@
 .lt-mode .a11y-btn::after, .lt-mode .lang-toggle::after { background:rgba(220,228,248,.97); }
 
 /* Theme button styles */
-#bTheme { overflow: hidden; }
+#bTheme { overflow: visible; }
 #bTheme .ic-sun,
 #bTheme .ic-moon {
   position: absolute;
@@ -599,7 +599,7 @@ footer p{font-size:.78rem;color:var(--muted)}
   </button>
   <!-- Theme toggle button -->
   <button class="a11y-btn" id="bTheme" aria-label="Toggle light/dark theme"
-          aria-pressed="false" data-tip="Светлая тема" data-mode="theme">
+          aria-pressed="false" data-tip="Смена темы" data-mode="theme">
     <svg class="ic-sun"><use href="#ic-sun"/></svg>
     <svg class="ic-moon"><use href="#ic-moon"/></svg>
   </button>
@@ -977,7 +977,7 @@ function applyLang(l){
   ltog.setAttribute('data-tip',l==='en'?'Switch to RU':'RU / EN');
   bZoom.setAttribute('data-tip', isLt?(l==='en'?'Normal text':'Обычный текст'):(l==='en'?'Large text':'Крупный текст'));
   bCb.setAttribute('data-tip', isCb?(l==='en'?'Normal colors':'Обычные цвета'):(l==='en'?'Colorblind mode':'Режим дальтоника'));
-  bTheme.setAttribute('data-tip', isLight?(l==='en'?'Dark theme':'Тёмная тема'):(l==='en'?'Light theme':'Светлая тема'));
+  bTheme.setAttribute('data-tip', l==='en' ? 'Change theme' : 'Смена темы');
 }
 
 function switchLang(){
@@ -1020,9 +1020,6 @@ bTheme.addEventListener('click', function(){
   html.classList.toggle('lt-mode', isLight);
   bTheme.classList.toggle('on', isLight);
   bTheme.setAttribute('aria-pressed', String(isLight));
-  bTheme.setAttribute('data-tip', isLight
-    ? (lang==='en' ? 'Dark theme'  : 'Тёмная тема')
-    : (lang==='en' ? 'Light theme' : 'Светлая тема'));
 });
 
 /* Contact form */
