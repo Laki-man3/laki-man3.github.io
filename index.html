@@ -87,8 +87,8 @@
              data-ru="Открыт для новых проектов, предложений о работе"
              data-en="Open to new projects and job opportunities">Открыт для новых проектов, предложений о работе</div>
         <h1>
-          <span class="name" data-ru="Семён Дашкин" data-en="Semyon Dashkin">Семён Дашкин</span><br>
-          <span class="role" data-ru="QA-инженер" data-en="QA Engineer">QA-инженер</span>
+          <span class="name tw-name" data-ru="Семён Дашкин" data-en="Semyon Dashkin"></span><br>
+          <span class="role tw-role" data-ru="QA-инженер" data-en="QA Engineer"></span>
         </h1>
         <p class="hero-desc"
            data-ru="Обеспечение качества программного обеспечения через тщательное тестирование — ручное и автоматизированное. Нахожу баги раньше, чем их найдут пользователи."
@@ -236,7 +236,7 @@
         <h2 data-ru="Проекты" data-en="Projects">Проекты</h2>
       </div>
       <div class="projects-grid">
-        <div class="project-card reveal">
+        <div class="project-card reveal tilt-card">
           <div class="project-icon">🧩</div>
           <div class="project-body">
             <h3 data-ru="Пакет автотестов для web-приложения" data-en="Automated Test Suite for Web Application">Пакет автотестов для web-приложения</h3>
@@ -246,7 +246,7 @@
             <a href="https://github.com/Laki-man3/QA/tree/main/autotests" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
           </div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card reveal tilt-card">
           <div class="project-icon">🏗️</div>
           <div class="project-body">
             <h3 data-ru="Автоматизированный тестовый фреймворк - PyTestFrame" data-en="Automated Test Framework — PyTestFrame">Автоматизированный тестовый фреймворк - PyTestFrame</h3>
@@ -256,7 +256,7 @@
             <a href="https://github.com/Laki-man3/QA/tree/main/PyTestFrame" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
           </div>
         </div>
-        <div class="project-card reveal">
+        <div class="project-card reveal tilt-card">
           <div class="project-icon">📄</div>
           <div class="project-body">
             <h3 data-ru="Комплект тестовой документации" data-en="Test Documentation Suite">Комплект тестовой документации</h3>
@@ -358,7 +358,10 @@
 </main>
 
 <footer>
-  <div class="container">
+  <div class="earth-wrap" aria-hidden="true">
+    <canvas id="earth-canvas"></canvas>
+  </div>
+  <div class="container footer-inner">
     <p>© 2026 <span data-ru="Семён Дашкин" data-en="Semyon Dashkin">Семён Дашкин</span> · QA Engineer Portfolio</p>
     <div class="foot-links">
       <a href="https://github.com/Laki-man3" target="_blank" rel="noopener" aria-label="GitHub">
@@ -370,6 +373,12 @@
     </div>
   </div>
 </footer>
+
+<button id="bTop" aria-label="Вернуться наверх" title="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<div id="section-flash" aria-hidden="true"></div>
 
 <script src="JS/main.js" defer></script>
 <script src="JS/effects.js" defer></script>
