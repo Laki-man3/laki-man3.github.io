@@ -1,4 +1,4 @@
-const CACHE='qa-v1';
+const CACHE='qa-v2';
 const ASSETS=[
   './',
   './index.html',
@@ -29,15 +29,14 @@ self.addEventListener('fetch',function(e){
   const url=new URL(e.request.url);
   if(url.origin!==location.origin)return;
   e.respondWith(
-    caches.match(e.request).then(function(cached){
-      const net=fetch(e.request).then(function(res){
-        if(res&&res.status===200){
-          const clone=res.clone();
-          caches.open(CACHE).then(function(c){c.put(e.request,clone);});
-        }
-        return res;
-      }).catch(function(){});
-      return cached||net;
+    fetch(e.request).then(function(res){
+      if(res&&res.status===200){
+        const clone=res.clone();
+        caches.open(CACHE).then(function(c){c.put(e.request,clone);});
+      }
+      return res;
+    }).catch(function(){
+      return caches.match(e.request);
     })
   );
 });
