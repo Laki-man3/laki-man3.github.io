@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>QA.Man</title>
+<title>QA.Man — Семён Дашкин</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap"></noscript>
+<link rel="stylesheet" href="CSS/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2282%22>⚙️</text></svg>">
 <svg hidden aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
@@ -20,577 +21,21 @@
     <symbol id="ic-zoom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></symbol>
     <symbol id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"/>
-      <line x1="12" y1="1" x2="12" y2="3"/>
-      <line x1="12" y1="21" x2="12" y2="23"/>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-      <line x1="1" y1="12" x2="3" y2="12"/>
-      <line x1="21" y1="12" x2="23" y2="12"/>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
     </symbol>
-    <symbol id="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </symbol>
+    <symbol id="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
   </defs>
 </svg>
-<style>
-:root{
-  --bg:#050810;--bg2:#0a0f1e;
-  --panel:rgba(10,18,40,.75);
-  --border:rgba(0,230,255,.12);
-  --primary:#00e5ff;--secondary:#7c3aed;--accent:#00ff9d;
-  --text:#c8d8f0;--muted:#4a5e80;--white:#eef4ff;
-  --glow-c:0 0 18px rgba(0,229,255,.45);
-  --glow-g:0 0 18px rgba(0,255,157,.45);
-  --fh:'Syne',sans-serif;--fm:'Space Mono',monospace;
-  font-size:15px;
-}
-
-/* LIGHT THEME */
-.lt-mode {
-  --bg:#f0f4ff;
-  --bg2:#e4eaf8;
-  --panel:rgba(255,255,255,.85);
-  --border:rgba(0,100,200,.15);
-  --primary:#0077cc;
-  --secondary:#6d28d9;
-  --accent:#059669;
-  --text:#2a3a5c;
-  --muted:#7a8aaa;
-  --white:#0a1628;
-  --glow-c:0 0 18px rgba(0,119,204,.35);
-  --glow-g:0 0 18px rgba(5,150,105,.35);
-}
-.lt-mode body::before {
-  background-image:
-    linear-gradient(rgba(0,100,200,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,100,200,.04) 1px,transparent 1px);
-  opacity:.5;
-}
-.lt-mode header { background:rgba(240,244,255,.95); }
-.lt-mode footer { background:rgba(220,228,248,.7); }
-.lt-mode .hero {
-  background:
-    radial-gradient(ellipse 65% 55% at 88% 5%, rgba(0,119,204,.12) 0%,transparent 70%),
-    radial-gradient(ellipse 55% 50% at 12% 92%,rgba(109,40,217,.1) 0%,transparent 70%),
-    radial-gradient(ellipse 38% 32% at 52% 46%,rgba(5,150,105,.07) 0%,transparent 65%),
-    var(--bg);
-}
-.lt-mode .terminal { background:#e8edf8; }
-.lt-mode .form-control { background:rgba(0,0,0,.04); color:var(--white); }
-.lt-mode .tag { background:rgba(0,119,204,.1); border-color:rgba(0,119,204,.25); }
-.lt-mode .a11y-btn { background:rgba(230,236,255,.92); }
-.lt-mode .lang-toggle { background:rgba(230,236,255,.92); }
-.lt-mode .btn-tg { background:rgba(200,210,240,.5); }
-.lt-mode .a11y-btn::after, .lt-mode .lang-toggle::after { background:rgba(220,228,248,.97); }
-
-/* Theme button styles */
-#bTheme { overflow: visible; }
-#bTheme .ic-sun,
-#bTheme .ic-moon {
-  position: absolute;
-  transition: opacity .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
-  width: 20px; height: 20px;
-}
-#bTheme .ic-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
-#bTheme .ic-moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
-
-.lt-mode #bTheme .ic-sun  { opacity: 0; transform: rotate(90deg) scale(0.6); }
-.lt-mode #bTheme .ic-moon { opacity: 1; transform: rotate(0deg) scale(1); }
-
-#bTheme:hover { border-color: #fbbf24; color: #fbbf24; box-shadow: 0 0 18px rgba(251,191,36,.4); }
-#bTheme.on {
-  background: rgba(255,220,50,.1);
-  border-color: #fbbf24;
-  color: #fbbf24;
-  box-shadow: 0 0 18px rgba(251,191,36,.4);
-}
-
-
-/* COLORBLIND MODE — DARK THEME */
-body.cb {
-  --bg:#04090f;
-  --bg2:#081422;
-  --panel:rgba(8,20,36,.88);
-  --border:rgba(0,119,187,.3);
-  --primary:#4db8ff;
-  --secondary:#cc3311;
-  --accent:#ff9933;
-  --text:#ddeeff;
-  --muted:#6688aa;
-  --white:#f0f8ff;
-  --glow-c:0 0 18px rgba(77,184,255,.55);
-  --glow-g:0 0 18px rgba(255,153,51,.55);
-  background:var(--bg);
-  color:var(--text);
-}
-body.cb .hero {
-  background:
-    radial-gradient(ellipse 65% 55% at 88% 5%, rgba(77,184,255,.18) 0%,transparent 70%),
-    radial-gradient(ellipse 55% 50% at 12% 92%,rgba(204,51,17,.15) 0%,transparent 70%),
-    radial-gradient(ellipse 38% 32% at 52% 46%,rgba(255,153,51,.1) 0%,transparent 65%),
-    var(--bg);
-}
-body.cb .timeline::before { background:linear-gradient(to bottom,#4db8ff,#cc3311,transparent); }
-body.cb .timeline-item::before { background:#4db8ff; box-shadow:0 0 18px rgba(77,184,255,.55); }
-body.cb .dot-r{background:#cc3311} body.cb .dot-y{background:#ff9933} body.cb .dot-g{background:#4db8ff}
-body.cb .t-out { border-left-color:rgba(77,184,255,.3); }
-body.cb .tag { background:rgba(77,184,255,.12); border-color:rgba(77,184,255,.3); color:#4db8ff; }
-body.cb .skill-list li { color:#ddeeff; }
-body.cb .skill-list li::before { color:#ff9933; }
-body.cb .tl-list li::before { color:#4db8ff; }
-body.cb .section-tag { color:#ff9933; }
-body.cb .hero-badge { color:#ff9933; border-color:rgba(255,153,51,.3); }
-body.cb .hero-badge::before { background:#ff9933; }
-body.cb .tl-date { color:#ff9933; }
-body.cb .course-date { color:#ff9933; }
-body.cb .stat-num { color:#4db8ff; }
-body.cb .logo { color:#4db8ff; }
-body.cb .logo span { color:#ff9933; }
-body.cb .t-cmd::before { color:#ff9933; }
-body.cb .t-cursor::after { color:#4db8ff; }
-body.cb .card h3 { color:#4db8ff; }
-body.cb .project-body h3 { color:#f0f8ff; }
-body.cb .course-card h3 { color:#f0f8ff; }
-body.cb .tl-company { color:#f0f8ff; }
-body.cb .project-link { color:#ff9933; }
-body.cb .course-cert { color:#ff9933; border-color:rgba(255,153,51,.3); background:rgba(255,153,51,.08); }
-body.cb .course-cert:hover { background:rgba(255,153,51,.2); }
-body.cb .contact-link { color:#4db8ff; }
-body.cb .btn-primary { background:#4db8ff; color:#04090f; }
-body.cb .btn-ghost { color:#4db8ff; border-color:#4db8ff; }
-
-/* COLORBLIND MODE — LIGHT THEME */
-html.lt-mode body.cb {
-  --bg:#eef4ff;
-  --bg2:#dce8fb;
-  --panel:rgba(255,255,255,.95);
-  --border:rgba(0,90,180,.25);
-  --primary:#005baa;
-  --secondary:#992200;
-  --accent:#cc6600;
-  --text:#0a1e38;
-  --muted:#445577;
-  --white:#0a1e38;
-  --glow-c:0 0 18px rgba(0,91,170,.35);
-  --glow-g:0 0 18px rgba(204,102,0,.35);
-  background:var(--bg);
-  color:var(--text);
-}
-html.lt-mode body.cb .hero {
-  background:
-    radial-gradient(ellipse 65% 55% at 88% 5%, rgba(0,91,170,.12) 0%,transparent 70%),
-    radial-gradient(ellipse 55% 50% at 12% 92%,rgba(153,34,0,.1) 0%,transparent 70%),
-    radial-gradient(ellipse 38% 32% at 52% 46%,rgba(204,102,0,.07) 0%,transparent 65%),
-    var(--bg);
-}
-html.lt-mode body.cb .terminal { background:#d8e8fa; }
-html.lt-mode body.cb .timeline::before { background:linear-gradient(to bottom,#005baa,#992200,transparent); }
-html.lt-mode body.cb .timeline-item::before { background:#005baa; box-shadow:0 0 14px rgba(0,91,170,.4); }
-html.lt-mode body.cb .dot-r{background:#992200} html.lt-mode body.cb .dot-y{background:#cc6600} html.lt-mode body.cb .dot-g{background:#005baa}
-html.lt-mode body.cb .tag { background:rgba(0,91,170,.12); border-color:rgba(0,91,170,.3); color:#005baa; }
-html.lt-mode body.cb .skill-list li { color:#0a1e38; }
-html.lt-mode body.cb .skill-list li::before { color:#cc6600; }
-html.lt-mode body.cb .tl-list li { color:#0a1e38; }
-html.lt-mode body.cb .tl-list li::before { color:#005baa; }
-html.lt-mode body.cb .section-tag { color:#cc6600; }
-html.lt-mode body.cb .hero-badge { color:#cc6600; border-color:rgba(204,102,0,.3); background:rgba(204,102,0,.06); }
-html.lt-mode body.cb .hero-badge::before { background:#cc6600; }
-html.lt-mode body.cb .tl-date { color:#cc6600; }
-html.lt-mode body.cb .course-date { color:#cc6600; }
-html.lt-mode body.cb .stat-num { color:#005baa; }
-html.lt-mode body.cb .logo { color:#005baa; }
-html.lt-mode body.cb .logo span { color:#cc6600; }
-html.lt-mode body.cb .t-cmd::before { color:#cc6600; }
-html.lt-mode body.cb .t-cmd { color:#0a1e38; }
-html.lt-mode body.cb .t-out { color:#334466; border-left-color:rgba(0,91,170,.3); }
-html.lt-mode body.cb .t-out strong { color:#0a1e38; }
-html.lt-mode body.cb .t-cursor::after { color:#005baa; }
-html.lt-mode body.cb .card h3 { color:#005baa; }
-html.lt-mode body.cb .card p { color:#334466; }
-html.lt-mode body.cb .project-body h3 { color:#0a1e38; }
-html.lt-mode body.cb .project-body p { color:#334466; }
-html.lt-mode body.cb .course-card h3 { color:#0a1e38; }
-html.lt-mode body.cb .tl-company { color:#0a1e38; }
-html.lt-mode body.cb .tl-role { color:#445577; }
-html.lt-mode body.cb .project-link { color:#cc6600; }
-html.lt-mode body.cb .course-cert { color:#cc6600; border-color:rgba(204,102,0,.4); background:rgba(204,102,0,.08); }
-html.lt-mode body.cb .contact-link { color:#005baa; }
-html.lt-mode body.cb .btn-primary { background:#005baa; color:#fff; }
-html.lt-mode body.cb .btn-ghost { color:#005baa; border-color:#005baa; }
-html.lt-mode body.cb .muted { color:#445577; }
-html.lt-mode body.cb .form-control { color:#0a1e38; background:rgba(0,0,0,.05); }
-html.lt-mode body.cb header { background:rgba(238,244,255,.97); border-color:rgba(0,91,170,.2); }
-html.lt-mode body.cb footer { background:rgba(214,228,248,.8); }
-html.lt-mode body.cb .a11y-btn { background:rgba(214,228,248,.95); }
-html.lt-mode body.cb .lang-toggle { background:rgba(214,228,248,.95); }
-
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;font-size:15px;transition:font-size .3s ease}
-html.lt{font-size:19px}
-body{
-  background:var(--bg);color:var(--text);
-  font-family:var(--fm);font-size:1rem;
-  line-height:1.7;overflow-x:hidden;
-  transition:background-color .4s,color .4s;
-}
-body::before{
-  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:
-    linear-gradient(rgba(0,229,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,229,255,.025) 1px,transparent 1px);
-  background-size:60px 60px;opacity:.7;
-  will-change:auto;
-  transition:opacity .4s;
-}
-body.cb::before{opacity:.3}
-.container{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
-
-/* ACCESSIBILITY TOOLBAR */
-.a11y-bar{
-  position:fixed;top:50%;right:20px;transform:translateY(-50%);
-  z-index:500;display:flex;flex-direction:column;gap:10px;align-items:center;
-}
-.a11y-btn{
-  width:44px;height:44px;border-radius:12px;
-  border:1px solid var(--border);
-  background:rgba(10,18,40,.92);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:border-color .25s,box-shadow .25s,background .25s,transform .2s;
-  color:var(--muted);
-  position:relative;
-}
-.a11y-btn svg{width:20px;height:20px;flex-shrink:0;pointer-events:none}
-.a11y-btn:hover{border-color:var(--primary);color:var(--primary);box-shadow:var(--glow-c);transform:scale(1.08)}
-.a11y-btn.on{background:rgba(0,229,255,.12);border-color:var(--primary);color:var(--primary);box-shadow:var(--glow-c)}
-.a11y-btn[data-mode=cb].on{background:rgba(238,119,51,.12);border-color:var(--accent);color:var(--accent);box-shadow:var(--glow-g)}
-.a11y-btn::after,.lang-toggle::after{
-  content:attr(data-tip);
-  position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);
-  background:rgba(10,18,40,.97);border:1px solid var(--border);border-radius:8px;
-  padding:.35rem .75rem;font-size:.72rem;letter-spacing:.06em;
-  color:var(--text);white-space:nowrap;font-family:var(--fm);
-  opacity:0;pointer-events:none;transition:opacity .2s;
-}
-.a11y-btn:hover::after,.lang-toggle:hover::after{opacity:1}
-
-/* Language lever */
-.lang-toggle{
-  width:56px;height:28px;border-radius:100px;
-  border:1px solid var(--border);background:rgba(10,18,40,.92);
-  backdrop-filter:blur(12px);cursor:pointer;
-  position:relative;display:flex;align-items:center;padding:0 4px;
-  transition:border-color .25s,box-shadow .25s;
-}
-.lang-toggle:hover{border-color:var(--primary);box-shadow:var(--glow-c)}
-.lang-labels{
-  position:absolute;inset:0;display:flex;align-items:center;
-  justify-content:space-between;padding:0 6px;
-  font-family:var(--fm);font-size:.6rem;font-weight:700;
-  letter-spacing:.04em;pointer-events:none;user-select:none;
-}
-.lang-labels span{color:var(--muted);transition:color .3s}
-.lang-labels span.al{color:var(--primary)}
-.lang-knob{
-  width:20px;height:20px;border-radius:50%;
-  background:var(--primary);box-shadow:0 0 10px rgba(0,229,255,.6);
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1),background .3s;
-  position:relative;z-index:1;flex-shrink:0;
-}
-.lang-toggle.en .lang-knob{transform:translateX(26px);background:var(--accent);box-shadow:0 0 10px rgba(0,255,157,.6)}
-
-/* Translate overlay */
-.t-ov{
-  position:fixed;inset:0;background:rgba(5,8,16,.7);
-  backdrop-filter:blur(4px);z-index:999;
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .25s;
-}
-.t-ov.show{opacity:1;pointer-events:all}
-.t-sp{display:flex;flex-direction:column;align-items:center;gap:1rem}
-.t-ring{
-  width:48px;height:48px;border:3px solid var(--border);
-  border-top-color:var(--primary);border-radius:50%;
-  animation:spin .8s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.t-sp p{font-size:.8rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-
-/* HEADER */
-header{
-  position:sticky;top:0;z-index:200;
-  background:rgba(5,8,16,.92);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-  will-change:transform;
-  contain:layout style paint;
-  transition:background .4s,border-color .4s;
-}
-nav{display:flex;justify-content:space-between;align-items:center;min-height:64px;padding:8px 0;flex-wrap:wrap;gap:8px}
-.logo{font-family:var(--fh);font-size:1.25rem;font-weight:800;color:var(--primary);letter-spacing:-.02em;text-shadow:var(--glow-c);flex-shrink:0}
-.logo span{color:var(--accent)}
-.nav-links{
-  display:flex;gap:1.25rem;list-style:none;
-  flex-wrap:wrap;          
-  justify-content:flex-end;
-  min-width:0;
-}
-.nav-links a{
-  color:var(--muted);text-decoration:none;
-  font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
-  transition:color .25s,text-shadow .25s;
-  white-space:nowrap;      
-}
-.nav-links a:hover{color:var(--primary);text-shadow:var(--glow-c)}
-
-/* HERO */
-.hero{
-  min-height:100vh;display:flex;align-items:center;
-  position:relative;overflow:hidden;padding:6rem 0 4rem;
-  background:
-    radial-gradient(ellipse 65% 55% at 88% 5%, rgba(0,229,255,.14) 0%,transparent 70%),
-    radial-gradient(ellipse 55% 50% at 12% 92%,rgba(124,58,237,.13) 0%,transparent 70%),
-    radial-gradient(ellipse 38% 32% at 52% 46%,rgba(0,255,157,.07) 0%,transparent 65%),
-    var(--bg);
-  transition:background .4s;
-}
-.hero-content{position:relative;z-index:1}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.35rem 1rem;border:1px solid var(--border);border-radius:100px;
-  font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);background:rgba(0,255,157,.06);margin-bottom:1.5rem;
-  animation:fadeUp .6s ease both;
-}
-.hero-badge::before {
-  content:''; width:7px; height:7px; border-radius:50%;
-  background:var(--accent); display:inline-block;
-  animation:pulse 2.5s ease-in-out infinite;
-  will-change: opacity, transform;
-}
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.4)} }
-h1 {
-  font-family:var(--fh);
-  font-size:clamp(2.8rem,6vw,5rem); font-weight:800;
-  line-height:1.05; letter-spacing:-.03em; color:var(--white);
-  margin-bottom:1.5rem; animation:fadeUp .6s .1s ease both;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-html.lt h1 { font-size:clamp(2.4rem,7vw,5.8rem) }
-h1 .name{color:var(--primary);text-shadow:var(--glow-c)}
-h1 .role{color:var(--accent);text-shadow:var(--glow-g)}
-.hero-desc{
-  font-size:1rem;color:var(--text);
-  max-width:560px;margin-bottom:2.5rem;
-  animation:fadeUp .6s .2s ease both;
-}
-.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;animation:fadeUp .6s .3s ease both}
-.btn{
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.75rem 1.75rem;border-radius:8px;
-  font-family:var(--fm);font-size:.82rem;font-weight:700;
-  text-decoration:none;cursor:pointer;border:none;
-  transition:background .2s,box-shadow .2s,border-color .2s,color .2s,transform .2s;
-  letter-spacing:.04em;
-}
-.btn svg{width:16px;height:16px;flex-shrink:0}
-.btn-primary{background:var(--primary);color:#000}
-.btn-primary:hover{background:#33ecff;box-shadow:0 0 24px rgba(0,229,255,.5);transform:translateY(-2px)}
-.btn-ghost{background:transparent;color:var(--primary);border:1px solid var(--primary)}
-.btn-ghost:hover{background:rgba(0,229,255,.1);box-shadow:var(--glow-c);transform:translateY(-2px)}
-.btn-tg{background:rgba(10,18,40,.8);color:var(--text);border:1px solid var(--border)}
-.btn-tg:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-2px)}
-.hero-stats{display:flex;gap:2.5rem;margin-top:3.5rem;animation:fadeUp .6s .4s ease both}
-.stat{display:flex;flex-direction:column}
-.stat-num{font-family:var(--fh);font-size:2rem;font-weight:800;color:var(--primary);line-height:1}
-.stat-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.25rem}
-
-/* SECTIONS */
-.section{padding:6rem 0}
-.section-header{text-align:center;margin-bottom:4rem}
-.section-tag{display:inline-block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem}
-h2{font-family:var(--fh);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-.03em;color:var(--white)}
-html.lt h2{font-size:clamp(2.1rem,5vw,3.2rem)}
-
-/* TERMINAL */
-.terminal{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 0 60px rgba(0,229,255,.06);transition:background .4s,border-color .4s}
-.terminal-bar{display:flex;align-items:center;gap:.6rem;padding:.85rem 1.2rem;background:rgba(255,255,255,.03);border-bottom:1px solid var(--border)}
-.dot{width:12px;height:12px;border-radius:50%}
-.dot-r{background:#ff5f57}.dot-y{background:#febc2e}.dot-g{background:#28c840}
-.t-title{font-size:.8rem;color:var(--muted);margin-left:.5rem}
-.terminal-body{padding:1.5rem 1.75rem;line-height:1.8}
-.t-cmd{color:var(--white);margin-bottom:.3rem}
-.t-cmd::before{content:"$ ";color:var(--accent)}
-.t-out{color:var(--muted);margin-bottom:1.5rem;padding-left:1.1rem;border-left:2px solid rgba(0,229,255,.15)}
-.t-out strong{color:var(--text)}
-.t-cursor::after { content:"▋"; animation:blink 1.2s ease-in-out infinite; color:var(--primary); will-change:opacity; }
-@keyframes blink { 0%,100%{opacity:1} 45%,55%{opacity:0} }
-
-/* SKILLS */
-.skills-flat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:2rem 2.5rem;margin-bottom:1.25rem}
-.skill-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.skill-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.88rem;color:var(--text)}
-.skill-list li::before{content:"→";color:var(--accent);flex-shrink:0;margin-top:2px}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:border-color .25s,transform .25s,box-shadow .25s}
-.card:hover{border-color:rgba(0,229,255,.4);transform:translateY(-4px);box-shadow:0 8px 32px rgba(0,229,255,.1)}
-.skill-icon{font-size:1.5rem;margin-bottom:.75rem}
-.card h3{font-family:var(--fh);font-size:.95rem;font-weight:700;color:var(--primary);margin-bottom:.5rem}
-.card p{font-size:.82rem;color:var(--muted);line-height:1.6}
-
-/* TIMELINE */
-.timeline{position:relative;padding-left:2rem}
-.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--primary),var(--secondary),transparent)}
-.timeline-item{
-  position:relative;background:var(--panel);border:1px solid var(--border);
-  border-radius:14px;padding:1.75rem 2rem;margin-bottom:1.5rem;
-  transition:border-color .25s,box-shadow .25s;
-}
-.timeline-item:hover{border-color:rgba(0,229,255,.35);box-shadow:0 8px 32px rgba(0,229,255,.08)}
-.timeline-item::before{
-  content:'';position:absolute;left:-2.6rem;top:1.75rem;
-  width:14px;height:14px;border-radius:50%;
-  background:var(--primary);box-shadow:var(--glow-c);border:2px solid var(--bg);
-  transition:border-color .4s;
-}
-.tl-date{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
-.tl-company{font-family:var(--fh);font-size:1.25rem;font-weight:800;color:var(--white);margin-bottom:.3rem}
-.tl-role{font-size:.82rem;color:var(--muted);margin-bottom:1rem}
-.tl-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
-.tl-list li{font-size:.85rem;color:var(--text);display:flex;gap:.6rem}
-.tl-list li::before{content:"▸";color:var(--primary);flex-shrink:0}
-
-/* PROJECTS */
-.projects-grid{display:flex;flex-direction:column;gap:1.5rem}
-.project-card{
-  display:grid;grid-template-columns:100px 1fr;gap:1.75rem;
-  background:var(--panel);border:1px solid var(--border);border-radius:14px;
-  padding:2rem;transition:border-color .25s,transform .25s,box-shadow .25s;
-  text-decoration:none;color:inherit;
-}
-.project-card:hover{border-color:rgba(0,229,255,.4);transform:translateX(6px);box-shadow:0 0 40px rgba(0,229,255,.08)}
-.project-icon{
-  width:100px;height:100px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(124,58,237,.15));
-  border:1px solid var(--border);display:flex;align-items:center;
-  justify-content:center;font-size:2.5rem;flex-shrink:0;
-}
-.project-body{display:flex;flex-direction:column;justify-content:center}
-.project-body h3{font-family:var(--fh);font-size:1.15rem;font-weight:700;color:var(--white);margin-bottom:.5rem}
-.project-body p{font-size:.85rem;color:var(--muted);margin-bottom:1rem;line-height:1.6}
-.tags{display:flex;flex-wrap:wrap;gap:.4rem}
-.tag{padding:.25rem .7rem;border-radius:100px;font-size:.72rem;letter-spacing:.06em;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.18);color:var(--primary)}
-.project-link{
-  display:inline-flex;align-items:center;gap:.4rem;margin-top:.75rem;
-  font-size:.78rem;font-weight:700;color:var(--accent);text-decoration:none;
-  letter-spacing:.05em;text-transform:uppercase;transition:gap .2s;
-}
-.project-link:hover{gap:.7rem}
-
-/* COURSES */
-.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
-.course-card{
-  background:var(--panel);border:1px solid var(--border);border-radius:14px;
-  padding:1.75rem;transition:border-color .25s,transform .25s,box-shadow .25s;
-  display:flex;flex-direction:column;
-}
-.course-card:hover{border-color:rgba(0,255,157,.35);transform:translateY(-5px);box-shadow:0 8px 32px rgba(0,255,157,.08)}
-.course-card h3{font-family:var(--fh);font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.4rem;line-height:1.3}
-.course-date{font-size:.75rem;color:var(--accent);margin-bottom:1rem;letter-spacing:.05em}
-.course-card .tags{margin-top:auto;padding-top:1rem}
-.course-cert{
-  display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;
-  padding:.45rem 1rem;border-radius:8px;
-  background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.2);
-  color:var(--accent);font-size:.78rem;font-weight:700;text-decoration:none;
-  letter-spacing:.05em;transition:background .2s,box-shadow .2s;
-}
-.course-cert:hover{background:rgba(0,255,157,.18);box-shadow:var(--glow-g)}
-
-/* CONTACT */
-.contact-wrapper{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
-.contact-info h3{font-family:var(--fh);font-size:1.5rem;font-weight:800;color:var(--white);margin-bottom:1rem}
-.contact-info p{font-size:.88rem;color:var(--muted);margin-bottom:1.5rem}
-.contact-link{
-  display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 1.5rem;
-  border-radius:10px;background:rgba(0,229,255,.06);border:1px solid var(--border);
-  color:var(--primary);font-size:.85rem;font-weight:700;text-decoration:none;
-  transition:background .2s,border-color .2s,box-shadow .2s,transform .2s;
-}
-.contact-link svg{width:18px;height:18px;flex-shrink:0}
-.contact-link:hover{background:rgba(0,229,255,.14);border-color:var(--primary);box-shadow:var(--glow-c);transform:translateY(-2px)}
-.contact-form{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:2rem}
-.form-group{margin-bottom:1.25rem}
-.form-group label{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
-.form-control{
-  width:100%;padding:.75rem 1rem;background:rgba(255,255,255,.04);
-  border:1px solid var(--border);border-radius:8px;color:var(--white);
-  font-family:var(--fm);font-size:.85rem;transition:border-color .2s,box-shadow .2s;
-}
-.form-control:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,229,255,.1)}
-textarea.form-control{min-height:130px;resize:vertical}
-.btn-submit{
-  width:100%;padding:.85rem;background:var(--primary);color:#000;border:none;
-  border-radius:8px;font-family:var(--fm);font-size:.88rem;font-weight:700;
-  cursor:pointer;letter-spacing:.06em;text-transform:uppercase;
-  transition:background .2s,box-shadow .2s,transform .2s;
-}
-.btn-submit:hover{background:#33ecff;box-shadow:0 0 24px rgba(0,229,255,.5);transform:translateY(-2px)}
-.recaptcha-wrap{display:flex;justify-content:center;margin-bottom:1rem;min-height:78px}
-
-/* MISC */
-.divider{height:1px;background:linear-gradient(to right,transparent,var(--border) 30%,var(--border) 70%,transparent)}
-footer{border-top:1px solid var(--border);padding:2.5rem 0;text-align:center;background:rgba(5,8,16,.6);transition:background .4s,border-color .4s}
-footer p{font-size:.78rem;color:var(--muted)}
-.foot-links{display:flex;justify-content:center;gap:1.5rem;margin-top:1rem}
-.foot-links a{color:var(--muted);transition:color .2s}
-.foot-links a:hover{color:var(--primary)}
-.foot-links svg{width:22px;height:22px}
-
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
-.reveal.vis{opacity:1;transform:none}
-
-/* RESPONSIVE */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  .reveal{opacity:1;transform:none}
-}
-@media(max-width:900px){.a11y-bar{right:12px}}
-@media(max-width:768px){
-  nav{flex-direction:column;align-items:flex-start;padding:8px 0 12px}
-  .nav-links{gap:.75rem;justify-content:flex-start}
-  .nav-links a{font-size:.7rem}
-  .hero-stats{gap:1.5rem}
-  .project-card{grid-template-columns:1fr}
-  .project-icon{width:60px;height:60px;font-size:1.75rem}
-  .contact-wrapper,.skills-grid,.courses-grid{grid-template-columns:1fr}
-  .a11y-bar{top:auto;bottom:20px;right:50%;transform:translateX(50%);flex-direction:row}
-  .a11y-btn::after,.lang-toggle::after{right:auto;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);top:auto}
-}
-@media(max-width:480px) {
-  nav{padding:8px 0 10px}
-  .nav-links{gap:.5rem}
-  .nav-links a{font-size:.65rem;letter-spacing:.04em}
-  h1 { font-size:2.2rem }
-  html.lt h1 { font-size:clamp(1.9rem,8vw,2.6rem) }
-}
-html.lt .nav-links a{font-size:.72rem}
-html.lt .nav-links{gap:1rem}
-</style>
 </head>
 <body>
 
-<!-- TRANSLATE OVERLAY -->
 <div class="t-ov" id="tOv" aria-live="polite" aria-hidden="true">
   <div class="t-sp"><div class="t-ring"></div><p id="tOvTxt">Translating…</p></div>
 </div>
 
-<!-- ACCESSIBILITY TOOLBAR -->
 <div class="a11y-bar" role="toolbar" aria-label="Accessibility tools">
   <div class="lang-toggle" id="ltog" role="switch" aria-checked="false"
        aria-label="Switch language RU/EN" data-tip="RU / EN" tabindex="0">
@@ -605,7 +50,6 @@ html.lt .nav-links{gap:1rem}
           aria-pressed="false" data-tip="Режим дальтоника" data-mode="cb">
     <svg><use href="#ic-eye-off"/></svg>
   </button>
-  <!-- Theme toggle button -->
   <button class="a11y-btn" id="bTheme" aria-label="Toggle light/dark theme"
           aria-pressed="false" data-tip="Смена темы" data-mode="theme">
     <svg class="ic-sun"><use href="#ic-sun"/></svg>
@@ -613,10 +57,9 @@ html.lt .nav-links{gap:1rem}
   </button>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="container">
-    <nav>
+    <nav aria-label="Основная навигация">
       <div class="logo">QA<span>.</span>Man</div>
       <ul class="nav-links">
         <li><a href="#about"      data-ru="Обо мне"   data-en="About">Обо мне</a></li>
@@ -630,292 +73,285 @@ html.lt .nav-links{gap:1rem}
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-content">
-      <div class="hero-badge"
-           data-ru="Открыт для новых проектов, предложений о работе"
-           data-en="Open to new projects and job opportunities">Открыт для новых проектов, предложений о работе</div>
-      <h1>
-        <span class="name" data-ru="Семён Дашкин" data-en="Semyon Dashkin">Семён Дашкин</span><br>
-        <span class="role" data-ru="QA-инженер" data-en="QA Engineer">QA-инженер</span>
-      </h1>
-      <p class="hero-desc"
-         data-ru="Обеспечение качества программного обеспечения через тщательное тестирование — ручное и автоматизированное. Нахожу баги раньше, чем их найдут пользователи."
-         data-en="Ensuring software quality through thorough testing — manual and automated. I find bugs before users do.">
-        Обеспечение качества программного обеспечения через тщательное тестирование — ручное и автоматизированное. Нахожу баги раньше, чем их найдут пользователи.
-      </p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn btn-primary">
-          <svg><use href="#ic-chat"/></svg>
-          <span data-ru="Связаться" data-en="Contact me">Связаться</span>
-        </a>
-        <a href="#projects" class="btn btn-ghost">
-          <svg><use href="#ic-code"/></svg>
-          <span data-ru="Проекты" data-en="Projects">Проекты</span>
-        </a>
-        <a href="https://t.me/PowerOfNsk" target="_blank" rel="noopener" class="btn btn-tg">
-          <svg><use href="#ic-tg"/></svg>Telegram
-        </a>
-        <a href="https://github.com/Laki-man3" target="_blank" rel="noopener" class="btn btn-tg">
-          <svg><use href="#ic-gh"/></svg>GitHub
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><span class="stat-num">3+</span><span class="stat-label" data-ru="Года опыта" data-en="Years of experience">Года опыта</span></div>
-        <div class="stat"><span class="stat-num">3</span><span class="stat-label" data-ru="Проекта" data-en="Projects">Проекта</span></div>
-        <div class="stat"><span class="stat-num">5</span><span class="stat-label" data-ru="Сертификатов" data-en="Certificates">Сертификатов</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+<main>
 
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section class="section" id="about">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">// about</div>
-      <h2 data-ru="Обо мне" data-en="About Me">Обо мне</h2>
-    </div>
-    <div class="terminal reveal">
-      <div class="terminal-bar">
-        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
-        <span class="t-title">about.sh</span>
-      </div>
-      <div class="terminal-body">
-        <div class="t-cmd">whoami</div>
-        <div class="t-out"
-             data-ru="Меня зовут <strong>Семён</strong>, я QA-инженер и студент 3 курса НГТУ «Информационные системы и технологии».<br>Увлекаюсь ручным тестированием: тестирую формы, web-приложения, мобильные приложения, API.<br>Активно погружаюсь в автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления проблем до того, как они попадут в продакшн."
-             data-en="My name is <strong>Semyon</strong>, I'm a QA Engineer and a 3rd-year student at NSTU, majoring in Information Systems and Technologies.<br>Passionate about manual testing: forms, web apps, mobile apps, and API.<br>Actively diving into automation. My approach combines technical expertise with analytical thinking to catch issues before they reach production.">
-          Меня зовут <strong>Семён</strong>, я QA-инженер и студент 3 курса НГТУ «Информационные системы и технологии».<br>Увлекаюсь ручным тестированием: тестирую формы, web-приложения, мобильные приложения, API.<br>Активно погружаюсь в автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления проблем до того, как они попадут в продакшн.
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge"
+             data-ru="Открыт для новых проектов, предложений о работе"
+             data-en="Open to new projects and job opportunities">Открыт для новых проектов, предложений о работе</div>
+        <h1>
+          <span class="name" data-ru="Семён Дашкин" data-en="Semyon Dashkin">Семён Дашкин</span><br>
+          <span class="role" data-ru="QA-инженер" data-en="QA Engineer">QA-инженер</span>
+        </h1>
+        <p class="hero-desc"
+           data-ru="Обеспечение качества программного обеспечения через тщательное тестирование — ручное и автоматизированное. Нахожу баги раньше, чем их найдут пользователи."
+           data-en="Ensuring software quality through thorough testing — manual and automated. I find bugs before users do.">
+          Обеспечение качества программного обеспечения через тщательное тестирование — ручное и автоматизированное. Нахожу баги раньше, чем их найдут пользователи.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            <svg><use href="#ic-chat"/></svg>
+            <span data-ru="Связаться" data-en="Contact me">Связаться</span>
+          </a>
+          <a href="#projects" class="btn btn-ghost">
+            <svg><use href="#ic-code"/></svg>
+            <span data-ru="Проекты" data-en="Projects">Проекты</span>
+          </a>
+          <a href="https://t.me/PowerOfNsk" target="_blank" rel="noopener" class="btn btn-tg">
+            <svg><use href="#ic-tg"/></svg>Telegram
+          </a>
+          <a href="https://github.com/Laki-man3" target="_blank" rel="noopener" class="btn btn-tg">
+            <svg><use href="#ic-gh"/></svg>GitHub
+          </a>
         </div>
-        <div class="t-cmd">cat mission.txt</div>
-        <div class="t-out"
-             data-ru="Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей."
-             data-en="My mission is to serve as the bridge between development and user experience, ensuring that software not only works as expected but also delivers a seamless experience for end users.">
-          Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей.
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">3+</span><span class="stat-label" data-ru="Года опыта" data-en="Years of experience">Года опыта</span></div>
+          <div class="stat"><span class="stat-num">3</span><span class="stat-label" data-ru="Проекта" data-en="Projects">Проекта</span></div>
+          <div class="stat"><span class="stat-num">5</span><span class="stat-label" data-ru="Сертификатов" data-en="Certificates">Сертификатов</span></div>
         </div>
-        <div class="t-cmd t-cursor">ls -la qualities/</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- SKILLS -->
-<section class="section" id="skills">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">// skills</div>
-      <h2 data-ru="Технические навыки" data-en="Technical Skills">Технические навыки</h2>
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// about</div>
+        <h2 data-ru="Обо мне" data-en="About Me">Обо мне</h2>
+      </div>
+      <div class="terminal reveal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          <span class="t-title">about.sh</span>
+        </div>
+        <div class="terminal-body">
+          <div class="t-cmd">whoami</div>
+          <div class="t-out"
+               data-ru="Меня зовут <strong>Семён</strong>, я QA-инженер и студент 3 курса НГТУ «Информационные системы и технологии».<br>Увлекаюсь ручным тестированием: тестирую формы, web-приложения, мобильные приложения, API.<br>Активно погружаюсь в автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления проблем до того, как они попадут в продакшн."
+               data-en="My name is <strong>Semyon</strong>, I'm a QA Engineer and a 3rd-year student at NSTU, majoring in Information Systems and Technologies.<br>Passionate about manual testing: forms, web apps, mobile apps, and API.<br>Actively diving into automation. My approach combines technical expertise with analytical thinking to catch issues before they reach production.">
+            Меня зовут <strong>Семён</strong>, я QA-инженер и студент 3 курса НГТУ «Информационные системы и технологии».<br>Увлекаюсь ручным тестированием: тестирую формы, web-приложения, мобильные приложения, API.<br>Активно погружаюсь в автоматизацию. Мой подход сочетает техническую экспертизу с аналитическим мышлением для выявления проблем до того, как они попадут в продакшн.
+          </div>
+          <div class="t-cmd">cat mission.txt</div>
+          <div class="t-out"
+               data-ru="Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей."
+               data-en="My mission is to serve as the bridge between development and user experience, ensuring that software not only works as expected but also delivers a seamless experience for end users.">
+            Моя миссия — служить мостом между разработкой и пользовательским опытом, гарантируя, что ПО не только работает как ожидается, но и обеспечивает бесперебойный опыт для конечных пользователей.
+          </div>
+          <div class="t-cmd t-cursor">ls -la qualities/</div>
+        </div>
+      </div>
     </div>
-    <div class="skills-flat reveal">
-      <ul class="skill-list">
-        <li data-ru="Знание моделей и методологий разработки ПО." data-en="Knowledge of software development models and methodologies.">Знание моделей и методологий разработки ПО.</li>
-        <li data-ru="Понимание архитектурного стиля REST, работы протокола SOAP, языка запросов GraphQL, протокола RPC, механизма Webhooks." data-en="Understanding of REST architectural style, SOAP protocol, GraphQL query language, RPC protocol, and Webhooks.">Понимание архитектурного стиля REST, работы протокола SOAP, языка запросов GraphQL, протокола RPC, механизма Webhooks.</li>
-        <li data-ru="Понимание работы компьютерных сетей (ISO/OSI, TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.)." data-en="Understanding of computer networks (ISO/OSI, TCP/IP), web applications, servers, and application-layer protocols (HTTP, FTP, POP3, etc.).">Понимание работы компьютерных сетей (ISO/OSI, TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.).</li>
-        <li data-ru="Умение пользоваться инструментами разработки и тестирования — Jira, Figma, Git, DevTools, Kubernetes, Kafka, RabbitMQ, Kibana, Ключ Астром, Docker, WireMock и др." data-en="Proficient with development and testing tools — Jira, Figma, Git, DevTools, Kubernetes, Kafka, RabbitMQ, Kibana, Dynatrace, Docker, WireMock, and more.">Умение пользоваться инструментами разработки и тестирования — Jira, Figma, Git, DevTools, Kubernetes, Kafka, RabbitMQ, Kibana, Ключ Астром, Docker, WireMock и др.</li>
-        <li data-ru="Уверенное использование Windows и различных Unix систем (Ubuntu, Kali Linux и др.)" data-en="Confident use of Windows and various Unix systems (Ubuntu, Kali Linux, etc.)">Уверенное использование Windows и различных Unix систем (Ubuntu, Kali Linux и др.)</li>
-        <li data-ru="Навыки чтения, анализа и написания кода на Python, C++ и С#." data-en="Skills in reading, analyzing, and writing code in Python, C++, and C#.">Навыки чтения, анализа и написания кода на Python, C++ и С#.</li>
-        <li data-ru="Знание HTML, CSS и JavaScript." data-en="Knowledge of HTML, CSS, and JavaScript.">Знание HTML, CSS и JavaScript.</li>
-        <li data-ru="Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование." data-en="Knowledge of testing theory, test design techniques, and test artifact creation.">Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование.</li>
-        <li data-ru="Опыт тестирования REST API." data-en="Experience in REST API testing.">Опыт тестирования REST API.</li>
-        <li data-ru="Уверенное чтение логов и понимание работы ELK-стека." data-en="Confident log reading and understanding of the ELK stack.">Уверенное чтение логов и понимание работы ELK-стека.</li>
-        <li data-ru="Понимание принципов CI/CD." data-en="Understanding of CI/CD principles.">Понимание принципов CI/CD.</li>
-        <li data-ru="Понимание Производственного Процесса в крупнейших Финтехах страны на примере ВТБ, Альфа банка, Т-банка и Сбербанка." data-en="Understanding of production processes at leading Russian Fintechs: VTB, Alfa Bank, T-Bank, and Sberbank.">Понимание Производственного Процесса в крупнейших Финтехах страны на примере ВТБ, Альфа банка, Т-банка и Сбербанка.</li>
-        <li data-ru="Опыт анализа, проектирования, разработки, тестирования и администрирования реляционных БД (PostgreSQL, MySQL)." data-en="Experience in analysis, design, development, testing, and administration of relational databases (PostgreSQL, MySQL).">Опыт анализа, проектирования, разработки, тестирования и администрирования реляционных БД (PostgreSQL, MySQL).</li>
-        <li data-ru="Опыт написания автотестов с использованием Playwright, Selenium, Pytest и других фреймворков." data-en="Experience writing automated tests with Playwright, Selenium, Pytest, and other frameworks.">Опыт написания автотестов с использованием Playwright, Selenium, Pytest и других фреймворков.</li>
-      </ul>
-    </div>
-    <div class="skills-grid">
-      <div class="card reveal"><div class="skill-icon">🧪</div><h3 data-ru="Ручное тестирование" data-en="Manual Testing">Ручное тестирование</h3><p data-ru="Web, Mobile, API — функциональное, регрессионное, smoke, exploratory" data-en="Web, Mobile, API — functional, regression, smoke, exploratory">Web, Mobile, API — функциональное, регрессионное, smoke, exploratory</p></div>
-      <div class="card reveal"><div class="skill-icon">🤖</div><h3 data-ru="Автоматизация" data-en="Automation">Автоматизация</h3><p data-ru="Selenium, Playwright, Pytest — написание и поддержка тест-фреймворков" data-en="Selenium, Playwright, Pytest — writing and maintaining test frameworks">Selenium, Playwright, Pytest — написание и поддержка тест-фреймворков</p></div>
-      <div class="card reveal"><div class="skill-icon">🔌</div><h3 data-ru="API тестирование" data-en="API Testing">API тестирование</h3><p data-ru="Postman, REST/HTTP, Wireshark, перехват и анализ трафика" data-en="Postman, REST/HTTP, Wireshark, traffic interception and analysis">Postman, REST/HTTP, Wireshark, перехват и анализ трафика</p></div>
-      <div class="card reveal"><div class="skill-icon">📋</div><h3 data-ru="Тест-документация" data-en="Test Documentation">Тест-документация</h3><p data-ru="Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты" data-en="Test cases, bug reports, checklists, test plans, reports">Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты</p></div>
-      <div class="card reveal"><div class="skill-icon">⚙️</div><h3 data-ru="Инструменты" data-en="Tools">Инструменты</h3><p data-ru="Jira, Git, Figma, DevTools, ELK, CI/CD интеграции" data-en="Jira, Git, Figma, DevTools, ELK, CI/CD integrations">Jira, Git, Figma, DevTools, ELK, CI/CD интеграции</p></div>
-      <div class="card reveal"><div class="skill-icon">💻</div><h3 data-ru="Разработка" data-en="Development">Разработка</h3><p data-ru="Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно" data-en="Python, JavaScript, C++, HTML/CSS — reading and writing code confidently">Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно</p></div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- EXPERIENCE -->
-<section class="section" id="experience">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">// experience</div>
-      <h2 data-ru="Опыт работы" data-en="Work Experience">Опыт работы</h2>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="tl-date" data-ru="01.07.2023 — настоящее время" data-en="01.07.2023 — Present">01.07.2023 — настоящее время</div>
-        <div class="tl-company" data-ru="ГК «Иннотех»" data-en="Innotech Group">ГК «Иннотех»</div>
-        <div class="tl-role">QA Manual Engineer</div>
-        <ul class="tl-list">
-          <li data-ru="Проектирование и планирование тестирования" data-en="Test design and planning">Проектирование и планирование тестирования</li>
-          <li data-ru="Выполнение комплексного тестирования (функциональное, регрессионное, smoke и т.д.)" data-en="Performing comprehensive testing (functional, regression, smoke, etc.)">Выполнение комплексного тестирования (функциональное, регрессионное, smoke и т.д.)</li>
-          <li data-ru="Управление дефектами и отслеживание качества" data-en="Defect management and quality tracking">Управление дефектами и отслеживание качества</li>
-          <li data-ru="Работа с тестовыми данными и тестовым окружением" data-en="Working with test data and test environments">Работа с тестовыми данными и тестовым окружением</li>
-          <li data-ru="Отчётность и анализ результатов тестирования" data-en="Reporting and analysis of test results">Отчётность и анализ результатов тестирования</li>
-          <li data-ru="Интеграция в процессы разработки" data-en="Integration into development processes">Интеграция в процессы разработки</li>
-          <li data-ru="Демонстрация функционала заказчику (ПСИ)" data-en="Demonstrating functionality to the client (UAT)">Демонстрация функционала заказчику (ПСИ)</li>
+  <section class="section" id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// skills</div>
+        <h2 data-ru="Технические навыки" data-en="Technical Skills">Технические навыки</h2>
+      </div>
+      <div class="skills-flat reveal">
+        <ul class="skill-list">
+          <li data-ru="Знание моделей и методологий разработки ПО." data-en="Knowledge of software development models and methodologies.">Знание моделей и методологий разработки ПО.</li>
+          <li data-ru="Понимание архитектурного стиля REST, работы протокола SOAP, языка запросов GraphQL, протокола RPC, механизма Webhooks." data-en="Understanding of REST architectural style, SOAP protocol, GraphQL query language, RPC protocol, and Webhooks.">Понимание архитектурного стиля REST, работы протокола SOAP, языка запросов GraphQL, протокола RPC, механизма Webhooks.</li>
+          <li data-ru="Понимание работы компьютерных сетей (ISO/OSI, TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.)." data-en="Understanding of computer networks (ISO/OSI, TCP/IP), web applications, servers, and application-layer protocols (HTTP, FTP, POP3, etc.).">Понимание работы компьютерных сетей (ISO/OSI, TCP/IP), веб-приложений, серверов, протоколов прикладного уровня (HTTP, FTP, POP3 и др.).</li>
+          <li data-ru="Умение пользоваться инструментами разработки и тестирования — Jira, Figma, Git, DevTools, Kubernetes, Kafka, RabbitMQ, Kibana, Ключ Астром, Docker, WireMock и др." data-en="Proficient with development and testing tools — Jira, Figma, Git, DevTools, Kubernetes, Kafka, RabbitMQ, Kibana, Dynatrace, Docker, WireMock, and more.">Умение пользоваться инструментами разработки и тестирования — Jira, Figma, Git, DevTools, Kubernetes, Kafka, RabbitMQ, Kibana, Ключ Астром, Docker, WireMock и др.</li>
+          <li data-ru="Уверенное использование Windows и различных Unix систем (Ubuntu, Kali Linux и др.)" data-en="Confident use of Windows and various Unix systems (Ubuntu, Kali Linux, etc.)">Уверенное использование Windows и различных Unix систем (Ubuntu, Kali Linux и др.)</li>
+          <li data-ru="Навыки чтения, анализа и написания кода на Python, C++ и С#." data-en="Skills in reading, analyzing, and writing code in Python, C++, and C#.">Навыки чтения, анализа и написания кода на Python, C++ и С#.</li>
+          <li data-ru="Знание HTML, CSS и JavaScript." data-en="Knowledge of HTML, CSS, and JavaScript.">Знание HTML, CSS и JavaScript.</li>
+          <li data-ru="Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование." data-en="Knowledge of testing theory, test design techniques, and test artifact creation.">Знание теории тестирования, техник тест-дизайна, тестовых артефактов и их проектирование.</li>
+          <li data-ru="Опыт тестирования REST API." data-en="Experience in REST API testing.">Опыт тестирования REST API.</li>
+          <li data-ru="Уверенное чтение логов и понимание работы ELK-стека." data-en="Confident log reading and understanding of the ELK stack.">Уверенное чтение логов и понимание работы ELK-стека.</li>
+          <li data-ru="Понимание принципов CI/CD." data-en="Understanding of CI/CD principles.">Понимание принципов CI/CD.</li>
+          <li data-ru="Понимание Производственного Процесса в крупнейших Финтехах страны на примере ВТБ, Альфа банка, Т-банка и Сбербанка." data-en="Understanding of production processes at leading Russian Fintechs: VTB, Alfa Bank, T-Bank, and Sberbank.">Понимание Производственного Процесса в крупнейших Финтехах страны на примере ВТБ, Альфа банка, Т-банка и Сбербанка.</li>
+          <li data-ru="Опыт анализа, проектирования, разработки, тестирования и администрирования реляционных БД (PostgreSQL, MySQL)." data-en="Experience in analysis, design, development, testing, and administration of relational databases (PostgreSQL, MySQL).">Опыт анализа, проектирования, разработки, тестирования и администрирования реляционных БД (PostgreSQL, MySQL).</li>
+          <li data-ru="Опыт написания автотестов с использованием Playwright, Selenium, Pytest и других фреймворков." data-en="Experience writing automated tests with Playwright, Selenium, Pytest, and other frameworks.">Опыт написания автотестов с использованием Playwright, Selenium, Pytest и других фреймворков.</li>
         </ul>
       </div>
-      <div class="timeline-item reveal">
-        <div class="tl-date">14.03.2023 — 13.06.2023</div>
-        <div class="tl-company" data-ru="Элтекс" data-en="Eltex">Элтекс</div>
-        <div class="tl-role" data-ru="QA Manual Engineer (стажировка)" data-en="QA Manual Engineer (Internship)">QA Manual Engineer (стажировка)</div>
-        <ul class="tl-list">
-          <li data-ru="Ручное тестирование сетевых решений серии MES" data-en="Manual testing of MES series network solutions">Ручное тестирование сетевых решений серии MES</li>
-          <li data-ru="Написание тест-кейсов и баг-репортов" data-en="Writing test cases and bug reports">Написание тест-кейсов и баг-репортов</li>
-          <li data-ru="Работа с документацией на сетевое оборудование" data-en="Working with network equipment documentation">Работа с документацией на сетевое оборудование</li>
-          <li data-ru="Проведение показа функционала перед руководством" data-en="Demonstrating functionality to management">Проведение показа функционала перед руководством</li>
-        </ul>
+      <div class="skills-grid">
+        <div class="card reveal"><div class="skill-icon">🧪</div><h3 data-ru="Ручное тестирование" data-en="Manual Testing">Ручное тестирование</h3><p data-ru="Web, Mobile, API — функциональное, регрессионное, smoke, exploratory" data-en="Web, Mobile, API — functional, regression, smoke, exploratory">Web, Mobile, API — функциональное, регрессионное, smoke, exploratory</p></div>
+        <div class="card reveal"><div class="skill-icon">🤖</div><h3 data-ru="Автоматизация" data-en="Automation">Автоматизация</h3><p data-ru="Selenium, Playwright, Pytest — написание и поддержка тест-фреймворков" data-en="Selenium, Playwright, Pytest — writing and maintaining test frameworks">Selenium, Playwright, Pytest — написание и поддержка тест-фреймворков</p></div>
+        <div class="card reveal"><div class="skill-icon">🔌</div><h3 data-ru="API тестирование" data-en="API Testing">API тестирование</h3><p data-ru="Postman, REST/HTTP, Wireshark, перехват и анализ трафика" data-en="Postman, REST/HTTP, Wireshark, traffic interception and analysis">Postman, REST/HTTP, Wireshark, перехват и анализ трафика</p></div>
+        <div class="card reveal"><div class="skill-icon">📋</div><h3 data-ru="Тест-документация" data-en="Test Documentation">Тест-документация</h3><p data-ru="Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты" data-en="Test cases, bug reports, checklists, test plans, reports">Тест-кейсы, баг-репорты, чек-листы, тест-планы, отчёты</p></div>
+        <div class="card reveal"><div class="skill-icon">⚙️</div><h3 data-ru="Инструменты" data-en="Tools">Инструменты</h3><p data-ru="Jira, Git, Figma, DevTools, ELK, CI/CD интеграции" data-en="Jira, Git, Figma, DevTools, ELK, CI/CD integrations">Jira, Git, Figma, DevTools, ELK, CI/CD интеграции</p></div>
+        <div class="card reveal"><div class="skill-icon">💻</div><h3 data-ru="Разработка" data-en="Development">Разработка</h3><p data-ru="Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно" data-en="Python, JavaScript, C++, HTML/CSS — reading and writing code confidently">Python, JavaScript, C++, HTML/CSS — читаю и пишу код уверенно</p></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- PROJECTS -->
-<section class="section" id="projects">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">// projects</div>
-      <h2 data-ru="Проекты" data-en="Projects">Проекты</h2>
-    </div>
-    <div class="projects-grid">
-      <div class="project-card reveal">
-        <div class="project-icon">🧩</div>
-        <div class="project-body">
-          <h3 data-ru="Пакет автотестов для web-приложения" data-en="Automated Test Suite for Web Application">Пакет автотестов для web-приложения</h3>
-          <p data-ru="Комплексный набор автоматизированных тестов с использованием Selenium, Pytest, Playwright, Cypress, ZAP + Jest, Appium и др. на Python, JavaScript; REST Assured на Java. Тесты охватывают все уровни пирамиды тестирования: от юнит-тестов до сквозных E2E и нагрузочных проверок."
-             data-en="A comprehensive set of automated tests using Selenium, Pytest, Playwright, Cypress, ZAP + Jest, Appium, and more in Python and JavaScript; REST Assured in Java. Tests cover all levels of the testing pyramid: from unit tests to full E2E and load testing.">Комплексный набор автоматизированных тестов с использованием Selenium, Pytest, Playwright, Cypress, ZAP + Jest, Appium и др. на Python, JavaScript; REST Assured на Java. Тесты охватывают все уровни пирамиды тестирования: от юнит-тестов до сквозных E2E и нагрузочных проверок.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">PyTest</span><span class="tag">JavaScript</span><span class="tag">Playwright</span><span class="tag">Automation</span></div>
-          <a href="https://github.com/Laki-man3/QA/tree/main/autotests" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
-        </div>
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// experience</div>
+        <h2 data-ru="Опыт работы" data-en="Work Experience">Опыт работы</h2>
       </div>
-      <div class="project-card reveal">
-        <div class="project-icon">🏗️</div>
-        <div class="project-body">
-          <h3 data-ru="Автоматизированный тестовый фреймворк - PyTestFrame" data-en="Automated Test Framework — PyTestFrame">Автоматизированный тестовый фреймворк - PyTestFrame</h3>
-          <p data-ru="Полноценный фреймворк для автоматизированного тестирования веб-приложений на Python, построенный на паттерне Page Object Model (POM). Поддерживает UI-тестирование через Selenium и API-тестирование через requests."
-             data-en="A full-featured automated testing framework for web applications in Python, built on the Page Object Model (POM) pattern. Supports UI testing via Selenium and API testing via requests.">Полноценный фреймворк для автоматизированного тестирования веб-приложений на Python, построенный на паттерне Page Object Model (POM). Поддерживает UI-тестирование через Selenium и API-тестирование через requests.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Pytest</span><span class="tag">CI/CD</span><span class="tag">Allure</span></div>
-          <a href="https://github.com/Laki-man3/QA/tree/main/PyTestFrame" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="tl-date" data-ru="01.07.2023 — настоящее время" data-en="01.07.2023 — Present">01.07.2023 — настоящее время</div>
+          <div class="tl-company" data-ru="ГК «Иннотех»" data-en="Innotech Group">ГК «Иннотех»</div>
+          <div class="tl-role">QA Manual Engineer</div>
+          <ul class="tl-list">
+            <li data-ru="Проектирование и планирование тестирования" data-en="Test design and planning">Проектирование и планирование тестирования</li>
+            <li data-ru="Выполнение комплексного тестирования (функциональное, регрессионное, smoke и т.д.)" data-en="Performing comprehensive testing (functional, regression, smoke, etc.)">Выполнение комплексного тестирования (функциональное, регрессионное, smoke и т.д.)</li>
+            <li data-ru="Управление дефектами и отслеживание качества" data-en="Defect management and quality tracking">Управление дефектами и отслеживание качества</li>
+            <li data-ru="Работа с тестовыми данными и тестовым окружением" data-en="Working with test data and test environments">Работа с тестовыми данными и тестовым окружением</li>
+            <li data-ru="Отчётность и анализ результатов тестирования" data-en="Reporting and analysis of test results">Отчётность и анализ результатов тестирования</li>
+            <li data-ru="Интеграция в процессы разработки" data-en="Integration into development processes">Интеграция в процессы разработки</li>
+            <li data-ru="Демонстрация функционала заказчику (ПСИ)" data-en="Demonstrating functionality to the client (UAT)">Демонстрация функционала заказчику (ПСИ)</li>
+          </ul>
         </div>
-      </div>
-      <div class="project-card reveal">
-        <div class="project-icon">📄</div>
-        <div class="project-body">
-          <h3 data-ru="Комплект тестовой документации" data-en="Test Documentation Suite">Комплект тестовой документации</h3>
-          <p data-ru="Обширная коллекция профессиональной тест-документации: детализированные тест-кейсы, баг-репорты, решения тестовых заданий от ведущих IT-компаний с применением современных методологий."
-             data-en="An extensive collection of professional test documentation: detailed test cases, bug reports, and solutions to test assignments from leading IT companies, using modern methodologies.">Обширная коллекция профессиональной тест-документации: детализированные тест-кейсы, баг-репорты, решения тестовых заданий от ведущих IT-компаний с применением современных методологий.</p>
-          <div class="tags"><span class="tag">Test Cases</span><span class="tag">Bug Reports</span><span class="tag">Test Documentation</span><span class="tag">QA Methodology</span></div>
-          <a href="https://github.com/Laki-man3/QA/tree/main" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
+        <div class="timeline-item reveal">
+          <div class="tl-date">14.03.2023 — 13.06.2023</div>
+          <div class="tl-company" data-ru="Элтекс" data-en="Eltex">Элтекс</div>
+          <div class="tl-role" data-ru="QA Manual Engineer (стажировка)" data-en="QA Manual Engineer (Internship)">QA Manual Engineer (стажировка)</div>
+          <ul class="tl-list">
+            <li data-ru="Ручное тестирование сетевых решений серии MES" data-en="Manual testing of MES series network solutions">Ручное тестирование сетевых решений серии MES</li>
+            <li data-ru="Написание тест-кейсов и баг-репортов" data-en="Writing test cases and bug reports">Написание тест-кейсов и баг-репортов</li>
+            <li data-ru="Работа с документацией на сетевое оборудование" data-en="Working with network equipment documentation">Работа с документацией на сетевое оборудование</li>
+            <li data-ru="Проведение показа функционала перед руководством" data-en="Demonstrating functionality to management">Проведение показа функционала перед руководством</li>
+          </ul>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- COURSES -->
-<section class="section" id="courses">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">// courses</div>
-      <h2 data-ru="Курсы и сертификаты" data-en="Courses &amp; Certificates">Курсы и сертификаты</h2>
-    </div>
-    <div class="courses-grid">
-      <div class="course-card reveal">
-        <h3 data-ru="Ручной тестировщик ПО / QA Manual" data-en="Manual Software Tester / QA Manual">Ручной тестировщик ПО / QA Manual</h3>
-        <div class="course-date">📅 28.02.2025 · Stepik</div>
-        <div class="tags"><span class="tag">QA</span><span class="tag">Manual Testing</span></div>
-        <a href="https://stepik.org/cert/2769477" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// projects</div>
+        <h2 data-ru="Проекты" data-en="Projects">Проекты</h2>
       </div>
-      <div class="course-card reveal">
-        <h3 data-ru="Тренажёр тестирования ПО / QA Manual" data-en="Software Testing Simulator / QA Manual">Тренажёр тестирования ПО / QA Manual</h3>
-        <div class="course-date">📅 26.02.2025 · Stepik</div>
-        <div class="tags"><span class="tag">Bug Reports</span><span class="tag">Test Cases</span></div>
-        <a href="https://stepik.org/cert/2767015" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
-      </div>
-      <div class="course-card reveal">
-        <h3 data-ru="Postman-ниндзя: с нуля до автотестов" data-en="Postman Ninja: From Zero to Automation">Postman-ниндзя: с нуля до автотестов</h3>
-        <div class="course-date">📅 15.02.2025 · Stepik</div>
-        <div class="tags"><span class="tag">API Testing</span><span class="tag">Postman</span><span class="tag">Automation</span></div>
-        <a href="https://stepik.org/cert/2756492" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
-      </div>
-      <div class="course-card reveal">
-        <h3 data-ru="Postman для тестирования API" data-en="Postman for API Testing">Postman для тестирования API</h3>
-        <div class="course-date">📅 15.02.2025 · Stepik</div>
-        <div class="tags"><span class="tag">REST API</span><span class="tag">HTTP</span><span class="tag">Postman</span></div>
-        <a href="https://stepik.org/cert/2756165" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
-      </div>
-      <div class="course-card reveal">
-        <h3 data-ru="Интенсив по ручному тестированию от T1" data-en="Manual Testing Intensive by T1">Интенсив по ручному тестированию от T1</h3>
-        <div class="course-date">📅 31.07.2025 · T1</div>
-        <div class="tags"><span class="tag">Manual Testing</span><span class="tag">Bug Reports</span><span class="tag">Test Cases</span></div>
-        <a href="https://davtb-teachbase.api.eric.s3storage.ru/system/coursestat/116573/cert/2b06ca199eb84080b88a58a29db4cd7f.pdf" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">// contact</div>
-      <h2 data-ru="Связаться со мной" data-en="Get In Touch">Связаться со мной</h2>
-    </div>
-    <div class="contact-wrapper reveal">
-      <div class="contact-info">
-        <h3 data-ru="Готов к сотрудничеству" data-en="Ready to Collaborate">Готов к сотрудничеству</h3>
-        <p data-ru="Открыт к новым проектам, стартапам и предложениям о работе. Отвечаю быстро — обычно в течение дня."
-           data-en="Open to new projects, startups, and job offers. I respond quickly — usually within a day.">Открыт к новым проектам, стартапам и предложениям о работе. Отвечаю быстро — обычно в течение дня.</p>
-        <a href="https://t.me/PowerOfNsk" target="_blank" rel="noopener" class="contact-link">
-          <svg><use href="#ic-tg"/></svg>
-          <span data-ru="Написать в Telegram" data-en="Message on Telegram">Написать в Telegram</span>
-        </a>
-      </div>
-      <!-- FIX PageSpeed #2: reCAPTCHA loaded lazily — only inject script when form is interacted with -->
-      <form id="cForm" class="contact-form" action="https://formspree.io/f/mbldnvlr" method="POST">
-        <div class="form-group">
-          <label for="fname" data-ru="Ваше имя" data-en="Your name">Ваше имя</label>
-          <input type="text" id="fname" name="name" class="form-control" required
-                 placeholder="Иван Иванов" data-ru-ph="Иван Иванов" data-en-ph="John Smith">
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-icon">🧩</div>
+          <div class="project-body">
+            <h3 data-ru="Пакет автотестов для web-приложения" data-en="Automated Test Suite for Web Application">Пакет автотестов для web-приложения</h3>
+            <p data-ru="Комплексный набор автоматизированных тестов с использованием Selenium, Pytest, Playwright, Cypress, ZAP + Jest, Appium и др. на Python, JavaScript; REST Assured на Java. Тесты охватывают все уровни пирамиды тестирования: от юнит-тестов до сквозных E2E и нагрузочных проверок."
+               data-en="A comprehensive set of automated tests using Selenium, Pytest, Playwright, Cypress, ZAP + Jest, Appium, and more in Python and JavaScript; REST Assured in Java. Tests cover all levels of the testing pyramid: from unit tests to full E2E and load testing.">Комплексный набор автоматизированных тестов с использованием Selenium, Pytest, Playwright, Cypress, ZAP + Jest, Appium и др. на Python, JavaScript; REST Assured на Java. Тесты охватывают все уровни пирамиды тестирования: от юнит-тестов до сквозных E2E и нагрузочных проверок.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">PyTest</span><span class="tag">JavaScript</span><span class="tag">Playwright</span><span class="tag">Automation</span></div>
+            <a href="https://github.com/Laki-man3/QA/tree/main/autotests" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="femail">Email</label>
-          <input type="email" id="femail" name="email" class="form-control" required placeholder="ivan@example.com">
+        <div class="project-card reveal">
+          <div class="project-icon">🏗️</div>
+          <div class="project-body">
+            <h3 data-ru="Автоматизированный тестовый фреймворк - PyTestFrame" data-en="Automated Test Framework — PyTestFrame">Автоматизированный тестовый фреймворк - PyTestFrame</h3>
+            <p data-ru="Полноценный фреймворк для автоматизированного тестирования веб-приложений на Python, построенный на паттерне Page Object Model (POM). Поддерживает UI-тестирование через Selenium и API-тестирование через requests."
+               data-en="A full-featured automated testing framework for web applications in Python, built on the Page Object Model (POM) pattern. Supports UI testing via Selenium and API testing via requests.">Полноценный фреймворк для автоматизированного тестирования веб-приложений на Python, построенный на паттерне Page Object Model (POM). Поддерживает UI-тестирование через Selenium и API-тестирование через requests.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">Selenium</span><span class="tag">Pytest</span><span class="tag">CI/CD</span><span class="tag">Allure</span></div>
+            <a href="https://github.com/Laki-man3/QA/tree/main/PyTestFrame" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="fmsg" data-ru="Сообщение" data-en="Message">Сообщение</label>
-          <textarea id="fmsg" name="message" class="form-control" required
-                    placeholder="Расскажите о своём проекте или предложении..."
-                    data-ru-ph="Расскажите о своём проекте или предложении..."
-                    data-en-ph="Tell me about your project or offer..."></textarea>
+        <div class="project-card reveal">
+          <div class="project-icon">📄</div>
+          <div class="project-body">
+            <h3 data-ru="Комплект тестовой документации" data-en="Test Documentation Suite">Комплект тестовой документации</h3>
+            <p data-ru="Обширная коллекция профессиональной тест-документации: детализированные тест-кейсы, баг-репорты, решения тестовых заданий от ведущих IT-компаний с применением современных методологий."
+               data-en="An extensive collection of professional test documentation: detailed test cases, bug reports, and solutions to test assignments from leading IT companies, using modern methodologies.">Обширная коллекция профессиональной тест-документации: детализированные тест-кейсы, баг-репорты, решения тестовых заданий от ведущих IT-компаний с применением современных методологий.</p>
+            <div class="tags"><span class="tag">Test Cases</span><span class="tag">Bug Reports</span><span class="tag">Test Documentation</span><span class="tag">QA Methodology</span></div>
+            <a href="https://github.com/Laki-man3/QA/tree/main" target="_blank" rel="noopener" class="project-link" data-ru="Смотреть на GitHub →" data-en="View on GitHub →">Смотреть на GitHub →</a>
+          </div>
         </div>
-        <div class="recaptcha-wrap" id="rcWrap">
-          <!-- reCAPTCHA widget injected here lazily on first form interaction -->
-        </div>
-        <button type="submit" class="btn-submit" data-ru="Отправить сообщение" data-en="Send Message">Отправить сообщение</button>
-      </form>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
+  <div class="divider"></div>
+
+  <section class="section" id="courses">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// courses</div>
+        <h2 data-ru="Курсы и сертификаты" data-en="Courses &amp; Certificates">Курсы и сертификаты</h2>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card reveal">
+          <h3 data-ru="Ручной тестировщик ПО / QA Manual" data-en="Manual Software Tester / QA Manual">Ручной тестировщик ПО / QA Manual</h3>
+          <div class="course-date">📅 28.02.2025 · Stepik</div>
+          <div class="tags"><span class="tag">QA</span><span class="tag">Manual Testing</span></div>
+          <a href="https://stepik.org/cert/2769477" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
+        </div>
+        <div class="course-card reveal">
+          <h3 data-ru="Тренажёр тестирования ПО / QA Manual" data-en="Software Testing Simulator / QA Manual">Тренажёр тестирования ПО / QA Manual</h3>
+          <div class="course-date">📅 26.02.2025 · Stepik</div>
+          <div class="tags"><span class="tag">Bug Reports</span><span class="tag">Test Cases</span></div>
+          <a href="https://stepik.org/cert/2767015" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
+        </div>
+        <div class="course-card reveal">
+          <h3 data-ru="Postman-ниндзя: с нуля до автотестов" data-en="Postman Ninja: From Zero to Automation">Postman-ниндзя: с нуля до автотестов</h3>
+          <div class="course-date">📅 15.02.2025 · Stepik</div>
+          <div class="tags"><span class="tag">API Testing</span><span class="tag">Postman</span><span class="tag">Automation</span></div>
+          <a href="https://stepik.org/cert/2756492" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
+        </div>
+        <div class="course-card reveal">
+          <h3 data-ru="Postman для тестирования API" data-en="Postman for API Testing">Postman для тестирования API</h3>
+          <div class="course-date">📅 15.02.2025 · Stepik</div>
+          <div class="tags"><span class="tag">REST API</span><span class="tag">HTTP</span><span class="tag">Postman</span></div>
+          <a href="https://stepik.org/cert/2756165" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
+        </div>
+        <div class="course-card reveal">
+          <h3 data-ru="Интенсив по ручному тестированию от T1" data-en="Manual Testing Intensive by T1">Интенсив по ручному тестированию от T1</h3>
+          <div class="course-date">📅 31.07.2025 · T1</div>
+          <div class="tags"><span class="tag">Manual Testing</span><span class="tag">Bug Reports</span><span class="tag">Test Cases</span></div>
+          <a href="https://davtb-teachbase.api.eric.s3storage.ru/system/coursestat/116573/cert/2b06ca199eb84080b88a58a29db4cd7f.pdf" target="_blank" rel="noopener" class="course-cert" data-ru="🎓 Сертификат" data-en="🎓 Certificate">🎓 Сертификат</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">// contact</div>
+        <h2 data-ru="Связаться со мной" data-en="Get In Touch">Связаться со мной</h2>
+      </div>
+      <div class="contact-wrapper reveal">
+        <div class="contact-info">
+          <h3 data-ru="Готов к сотрудничеству" data-en="Ready to Collaborate">Готов к сотрудничеству</h3>
+          <p data-ru="Открыт к новым проектам, стартапам и предложениям о работе. Отвечаю быстро — обычно в течение дня."
+             data-en="Open to new projects, startups, and job offers. I respond quickly — usually within a day.">Открыт к новым проектам, стартапам и предложениям о работе. Отвечаю быстро — обычно в течение дня.</p>
+          <a href="https://t.me/PowerOfNsk" target="_blank" rel="noopener" class="contact-link">
+            <svg><use href="#ic-tg"/></svg>
+            <span data-ru="Написать в Telegram" data-en="Message on Telegram">Написать в Telegram</span>
+          </a>
+        </div>
+        <form id="cForm" class="contact-form" action="https://formspree.io/f/mbldnvlr" method="POST">
+          <div class="form-group">
+            <label for="fname" data-ru="Ваше имя" data-en="Your name">Ваше имя</label>
+            <input type="text" id="fname" name="name" class="form-control" required
+                   placeholder="Иван Иванов" data-ru-ph="Иван Иванов" data-en-ph="John Smith">
+          </div>
+          <div class="form-group">
+            <label for="femail">Email</label>
+            <input type="email" id="femail" name="email" class="form-control" required placeholder="ivan@example.com">
+          </div>
+          <div class="form-group">
+            <label for="fmsg" data-ru="Сообщение" data-en="Message">Сообщение</label>
+            <textarea id="fmsg" name="message" class="form-control" required
+                      placeholder="Расскажите о своём проекте или предложении..."
+                      data-ru-ph="Расскажите о своём проекте или предложении..."
+                      data-en-ph="Tell me about your project or offer..."></textarea>
+          </div>
+          <div class="recaptcha-wrap" id="rcWrap"></div>
+          <button type="submit" class="btn-submit" data-ru="Отправить сообщение" data-en="Send Message">Отправить сообщение</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
 <footer>
   <div class="container">
     <p>© 2026 <span data-ru="Семён Дашкин" data-en="Semyon Dashkin">Семён Дашкин</span> · QA Engineer Portfolio</p>
@@ -930,142 +366,6 @@ html.lt .nav-links{gap:1rem}
   </div>
 </footer>
 
-<script>
-(function(){
-'use strict';
-
-/* Smooth scroll */
-document.addEventListener('click', function(e){
-  const a = e.target.closest('a[href^="#"]');
-  if(!a) return;
-  const t = document.querySelector(a.getAttribute('href'));
-  if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
-},{passive:true});
-
-/* Scroll reveal */
-const io = new IntersectionObserver(function(entries){
-  entries.forEach(function(en){
-    if(en.isIntersecting){ en.target.classList.add('vis'); io.unobserve(en.target); }
-  });
-},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-
-/* State */
-let lang='ru', isLt=false, isCb=false, isLight=false;
-const body=document.body;
-const html=document.documentElement;
-const ltog=document.getElementById('ltog');
-const lRu=document.getElementById('lRu');
-const lEn=document.getElementById('lEn');
-const tOv=document.getElementById('tOv');
-const tOvTxt=document.getElementById('tOvTxt');
-const bZoom=document.getElementById('bZoom');
-const bCb=document.getElementById('bCb');
-const bTheme=document.getElementById('bTheme');
-
-/* Language toggle */
-let txNodes=null;
-function cacheTx(){
-  if(txNodes) return;
-  txNodes={
-    html: Array.from(document.querySelectorAll('[data-ru][data-en]')),
-    ph:   Array.from(document.querySelectorAll('[data-ru-ph][data-en-ph]'))
-  };
-}
-
-function applyLang(l){
-  cacheTx();
-  txNodes.html.forEach(function(el){ el.innerHTML=el.getAttribute('data-'+l); });
-  txNodes.ph.forEach(function(el){ el.placeholder=el.getAttribute('data-'+l+'-ph'); });
-  document.documentElement.lang=l==='en'?'en':'ru';
-  ltog.classList.toggle('en',l==='en');
-  ltog.setAttribute('aria-checked',String(l==='en'));
-  lRu.classList.toggle('al',l!=='en');
-  lEn.classList.toggle('al',l==='en');
-  ltog.setAttribute('data-tip',l==='en'?'Switch to RU':'RU / EN');
-  bZoom.setAttribute('data-tip', isLt?(l==='en'?'Normal text':'Обычный текст'):(l==='en'?'Large text':'Крупный текст'));
-  bCb.setAttribute('data-tip', isCb?(l==='en'?'Normal colors':'Обычные цвета'):(l==='en'?'Colorblind mode':'Режим дальтоника'));
-  bTheme.setAttribute('data-tip', l==='en' ? 'Change theme' : 'Смена темы');
-}
-
-function switchLang(){
-  const nl=lang==='ru'?'en':'ru';
-  tOvTxt.textContent=nl==='en'?'Translating…':'Перевод…';
-  tOv.classList.add('show'); tOv.setAttribute('aria-hidden','false');
-  requestAnimationFrame(function(){
-    requestAnimationFrame(function(){
-      applyLang(nl); lang=nl;
-      setTimeout(function(){ tOv.classList.remove('show'); tOv.setAttribute('aria-hidden','true'); },280);
-    });
-  });
-}
-
-ltog.addEventListener('click',switchLang);
-ltog.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){e.preventDefault();switchLang();} });
-
-/* Large text */
-bZoom.addEventListener('click',function(){
-  isLt=!isLt;
-  html.classList.toggle('lt',isLt);
-  bZoom.classList.toggle('on',isLt);
-  bZoom.setAttribute('aria-pressed',String(isLt));
-  bZoom.setAttribute('data-tip',isLt?(lang==='en'?'Normal text':'Обычный текст'):(lang==='en'?'Large text':'Крупный текст'));
-});
-
-/* Colorblind mode */
-bCb.addEventListener('click',function(){
-  isCb=!isCb;
-  body.classList.toggle('cb',isCb);
-  bCb.classList.toggle('on',isCb);
-  bCb.setAttribute('aria-pressed',String(isCb));
-  bCb.querySelector('use').setAttribute('href',isCb?'#ic-eye-on':'#ic-eye-off');
-  bCb.setAttribute('data-tip',isCb?(lang==='en'?'Normal colors':'Обычные цвета'):(lang==='en'?'Colorblind mode':'Режим дальтоника'));
-});
-
-/* Theme toggle */
-bTheme.addEventListener('click', function(){
-  isLight = !isLight;
-  html.classList.toggle('lt-mode', isLight);
-  bTheme.classList.toggle('on', isLight);
-  bTheme.setAttribute('aria-pressed', String(isLight));
-});
-
-let rcLoaded = false;
-function loadRecaptcha(){
-  if(rcLoaded) return;
-  rcLoaded = true;
-  const wrap = document.getElementById('rcWrap');
-  const widgetDiv = document.createElement('div');
-  widgetDiv.className = 'g-recaptcha';
-  widgetDiv.setAttribute('data-sitekey','6LcpYukqAAAAANHAGhEhD6kkQf4HD1zoXsKNOyqg');
-  wrap.appendChild(widgetDiv);
-  const s = document.createElement('script');
-  s.src = 'https://www.google.com/recaptcha/api.js';
-  s.async = true; s.defer = true;
-  document.head.appendChild(s);
-}
-const cForm = document.getElementById('cForm');
-cForm.addEventListener('focusin', loadRecaptcha, {once:true});
-cForm.addEventListener('click', loadRecaptcha, {once:true});
-
-/* Contact form submit */
-cForm.addEventListener('submit',function(e){
-  e.preventDefault();
-  const n=cForm.elements.name,em=cForm.elements.email,msg=cForm.elements.message;
-  if(!n.value||!em.value||!msg.value){ alert(lang==='en'?'Please fill in all fields':'Пожалуйста, заполните все поля'); return; }
-  const rc=typeof grecaptcha!=='undefined'?grecaptcha.getResponse():'skip';
-  if(!rc){ alert(lang==='en'?'Please confirm you are not a robot':'Пожалуйста, подтвердите, что вы не робот'); return; }
-  const fd=new FormData(cForm);
-  if(rc!=='skip') fd.append('g-recaptcha-response',rc);
-  fetch(cForm.action,{method:'POST',body:fd,headers:{Accept:'application/json'}})
-    .then(function(r){
-      if(r.ok){ alert(lang==='en'?'Message sent successfully!':'Сообщение успешно отправлено!'); cForm.reset(); if(typeof grecaptcha!=='undefined') grecaptcha.reset(); }
-      else { alert(lang==='en'?'Send error. Please try again later.':'Ошибка отправки. Попробуйте позже.'); }
-    })
-    .catch(function(){ alert(lang==='en'?'Send error. Please try again later.':'Ошибка отправки. Попробуйте позже.'); });
-});
-
-})();
-</script>
+<script src="JS/main.js" defer></script>
 </body>
 </html>
