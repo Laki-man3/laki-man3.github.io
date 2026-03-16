@@ -27,14 +27,53 @@ function getThemeColors(){
   }catch(e){}
 })();
 
+function syncButtonStates(){
+  try{
+    const s=JSON.parse(localStorage.getItem('qa-prefs')||'{}');
+    const bZoom=document.getElementById('bZoom');
+    const bCb=document.getElementById('bCb');
+    const bTheme=document.getElementById('bTheme');
+    const ltog=document.getElementById('ltog');
+    const lRu=document.getElementById('lRu');
+    const lEn=document.getElementById('lEn');
+    if(bZoom&&s.large){
+      bZoom.classList.add('on');
+      bZoom.setAttribute('aria-pressed','true');
+    }
+    if(bCb&&s.cb){
+      bCb.classList.add('on');
+      bCb.setAttribute('aria-pressed','true');
+      const use=bCb.querySelector('use');
+      if(use)use.setAttribute('href','#ic-eye-on');
+    }
+    if(bTheme&&s.light){
+      bTheme.classList.add('on');
+      bTheme.setAttribute('aria-pressed','true');
+    }
+    if(ltog&&s.lang==='en'){
+      ltog.classList.add('en');
+      ltog.setAttribute('aria-checked','true');
+      if(lRu)lRu.classList.remove('al');
+      if(lEn)lEn.classList.add('al');
+    }
+  }catch(e){}
+}
+
 window.addEventListener('DOMContentLoaded',function(){
+  syncButtonStates();
   try{
     function savePrefs(){
+      const bZoom=document.getElementById('bZoom');
+      const bCb=document.getElementById('bCb');
       localStorage.setItem('qa-prefs',JSON.stringify({
         light:html.classList.contains('lt-mode'),
         cb:body.classList.contains('cb'),
         large:html.classList.contains('lt'),
-        lang:html.lang||'ru'
+        lang:html.lang||'ru',
+        btnZoom:bZoom?bZoom.classList.contains('on'):false,
+        btnCb:bCb?bCb.classList.contains('on'):false,
+        btnTheme:html.classList.contains('lt-mode'),
+        btnLang:html.lang||'ru'
       }));
     }
     ['bTheme','bCb','bZoom','ltog'].forEach(function(id){
@@ -93,7 +132,7 @@ if(canvas&&!PRM){
   for(let i=0;i<110;i++)stars.push({x:Math.random(),y:Math.random(),r:.4+Math.random()*1.1,base:.25+Math.random()*.5,ph:Math.random()*Math.PI*2,sp:.2+Math.random()*.9});
 
   const meteors=[];
-  let mTimer=0,lastMTs=0;
+  let mTimer=0;
   function spawnMeteor(){
     meteors.push({x:Math.random()*W*1.4-W*.2,y:-20,vx:3.5+Math.random()*4,vy:2+Math.random()*3,len:80+Math.random()*120,life:0,maxLife:50+Math.random()*35});
   }
@@ -231,7 +270,16 @@ document.addEventListener('click',function(e){
     const r=roleEl.getAttribute('data-'+l)||'';
     typewrite(nameEl,n,52,function(){setTimeout(function(){typewrite(roleEl,r,62);},180);});
   }
-  setTimeout(run,250);
+
+  function startWhenReady(){
+    if(document.readyState==='complete'){
+      setTimeout(run,100);
+    } else {
+      window.addEventListener('load',function(){setTimeout(run,100);},{once:true});
+    }
+  }
+  startWhenReady();
+
   let twT=null;
   new MutationObserver(function(){
     if(twT)clearTimeout(twT);
